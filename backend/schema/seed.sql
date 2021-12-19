@@ -1,3 +1,4 @@
+-- add 366 sample products
 INSERT INTO products
 	(id, name, image, option1, option2, price)
 VALUES
