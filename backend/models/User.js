@@ -19,13 +19,12 @@ class User {
 	 */
 	static async checkDuplicate(email) {
 		const result = await db.query(
-			`SELECT email
-			FROM users
+			`SELECT email FROM users
 			WHERE email = $1`,
 			[email]
 		);
 		if (result.rows[0]) {
-			throw new ExpressError(`Duplicate email: ${email}`, 400);
+			throw new ExpressError(`Duplicate user email: ${email}`, 400);
 		}
 	}
 
