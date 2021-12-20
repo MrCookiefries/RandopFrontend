@@ -13,6 +13,7 @@ app.use(require("./middleware/auth").authenticateJWT);
 // routes for resources
 app.use("/auth", require("./routes/auth"));
 app.use("/users", require("./routes/users"));
+app.use("/products", require("./routes/products"));
 
 // generate custom errors
 const ExpressError = require("./ExpressError");
