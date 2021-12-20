@@ -2,7 +2,7 @@ const { Router } = require("express");
 const router = Router();
 
 const User = require("../models/User");
-const handleJsonValidator = require("../helpers/jsonValidator");
+const handleJsonValidator = require("../helpers/handleJsonValidator");
 const loginSchema = require("../jsonschemas/auth/login.json");
 const createToken = require("../helpers/createToken");
 
