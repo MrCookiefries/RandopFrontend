@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 const { secretKey } = require("../config");
-const ExpressError = require("../ExpressError");
 
 /**
  * check if the request has a token
