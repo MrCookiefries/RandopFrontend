@@ -2,6 +2,7 @@ const uuidv4 = require("uuid").v4;
 
 const db = require("../database");
 const ExpressError = require("../ExpressError");
+const sqlPartialUpdate = require("../helpers/sqlPartialUpdate");
 
 // represents a product row in the products table
 class Product {
@@ -34,9 +35,7 @@ class Product {
 		}
 	}
 
-	/**
-	 * creates a new product instance to return
-	 */
+	// creates a new product instance to return
 	static async addNew({
 		name, image, price, id = uuidv4(), option1, option2
 	}) {
@@ -54,21 +53,85 @@ class Product {
 		return new this(result.rows[0]);
 	}
 
-	// deletes a product by ID & returns it
+	// creates multiple new product instances in an array to return
+	static addMultiple(products) {
+		return products.map(p => new this(p));
+	}
+
+	// deletes a product by ID & returns the ID
 	static async deleteById(id) {
 		const result = await db.query(
 			`DELETE FROM products
 			WHERE id = $1
-			RETURNING id, name, price, image, option1, option2, price`,
+			RETURNING id`,
 			[id]
 		);
 
-		return result.rows[0];
+		const product = result.rows[0];
+
+		if (!product) {
+			throw new ExpressError(`No product found with ID: ${id}`, 400);
+		}
+
+		return product.id;
 	}
 
 	// delete a product from instance
 	async delete() {
 		return await Product.deleteById(this.id);
+	}
+
+	// updates a product's information by the ID & returns it
+	static async updateById(id, data = {}) {
+		// generate the set portion of the query & the values array
+		const { setColumns, values } = sqlPartialUpdate(data);
+		const result = await db.query(
+			`UPDATE products
+			SET ${setColumns}
+			WHERE id = $${values.length + 1}
+			RETURNING id, name, image, option1, option2, price`,
+			[...values, id]
+		);
+
+		const product = result.rows[0];
+		if (!product) {
+			throw new ExpressError(`No product found with ID: ${id}`, 400);
+		}
+
+		return new this(product);
+	}
+
+	// update a product from instance
+	async update(data) {
+		return await Product.updateById(this.id, data);
+	}
+
+	// returns all the products or the amount specified
+	static async getProducts({ limit, offset }) {
+		// only add in the limit clause if applicable
+		const result = await db.query(
+			`SELECT id, name, image, option1, option2, price
+			FROM products ${limit ? "LIMIT " + limit : ""}
+			${offset ? "OFFSET " + offset : ""}`
+		);
+
+		return this.addMultiple(result.rows);
+	}
+
+	// return a product found by its ID
+	static async getProductById(id) {
+		const result = await db.query(
+			`SELECT id, name, image, option1, option2, price
+			FROM products WHERE id = $1`,
+			[id]
+		);
+
+		const product = result.rows[0];
+		if (!product) {
+			throw new ExpressError(`No product found with id: ${id}`, 400);
+		}
+
+		return new this(product);
 	}
 }
 
