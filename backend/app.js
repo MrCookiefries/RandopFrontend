@@ -14,6 +14,7 @@ app.use(require("./middleware/auth").authenticateJWT);
 app.use("/auth", require("./routes/auth"));
 app.use("/users", require("./routes/users"));
 app.use("/products", require("./routes/products"));
+app.use("/carts", require("./routes/carts"));
 
 // generate custom errors
 const ExpressError = require("./ExpressError");
