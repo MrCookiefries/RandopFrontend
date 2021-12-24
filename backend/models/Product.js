@@ -58,7 +58,7 @@ class Product {
 		return products.map(p => new this(p));
 	}
 
-	// deletes a product by ID & returns the ID
+	// deletes a product by ID
 	static async deleteById(id) {
 		const result = await db.query(
 			`DELETE FROM products
@@ -72,13 +72,11 @@ class Product {
 		if (!product) {
 			throw new ExpressError(`No product found with ID: ${id}`, 400);
 		}
-
-		return product.id;
 	}
 
 	// delete a product from instance
 	async delete() {
-		return await Product.deleteById(this.id);
+		await Product.deleteById(this.id);
 	}
 
 	// updates a product's information by the ID & returns it
