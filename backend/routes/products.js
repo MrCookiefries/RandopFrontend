@@ -9,7 +9,6 @@ const getManySchema = require("../jsonschemas/products/getMany.json");
 const addNewSchema = require("../jsonschemas/products/addNew.json");
 const updateSchema = require("../jsonschemas/products/update.json");
 
-
 router.get("/", catchErrors(async (req, res) => {
 	parseStringNums(req.query, ["limit", "offset"]);
 	handleJsonValidator(req.query, getManySchema);
