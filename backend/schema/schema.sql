@@ -32,7 +32,7 @@ CREATE TABLE products (
 CREATE TABLE carts (
 	user_id INTEGER,
 	product_id TEXT,
-	quantity INTEGER DEFAULT 1,
+	quantity INTEGER NOT NULL DEFAULT 1,
 
 	CONSTRAINT fk_user
 		FOREIGN KEY (user_id)
