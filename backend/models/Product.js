@@ -67,9 +67,7 @@ class Product {
 			[id]
 		);
 
-		const product = result.rows[0];
-
-		if (!product) {
+		if (!result.rows[0]) {
 			throw new ExpressError(`No product found with ID: ${id}`, 400);
 		}
 	}
