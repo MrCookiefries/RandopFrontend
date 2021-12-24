@@ -103,7 +103,7 @@ class Product {
 	}
 
 	// returns all the products or the amount specified
-	static async getProducts({ limit, offset }) {
+	static async getMany({ limit, offset }) {
 		// only add in the limit clause if applicable
 		const result = await db.query(
 			`SELECT id, name, image, option1, option2, price
@@ -115,7 +115,7 @@ class Product {
 	}
 
 	// return a product found by its ID
-	static async getProductById(id) {
+	static async getById(id) {
 		const result = await db.query(
 			`SELECT id, name, image, option1, option2, price
 			FROM products WHERE id = $1`,

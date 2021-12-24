@@ -12,12 +12,12 @@ const updateSchema = require("../jsonschemas/products/update.json");
 router.get("/", catchErrors(async (req, res) => {
 	parseStringNums(req.query, ["limit", "offset"]);
 	handleJsonValidator(req.query, getManySchema);
-	const products = await Product.getProducts(req.query);
+	const products = await Product.getMany(req.query);
 	return res.status(200).json({ products });
 }));
 
 router.get("/:id", catchErrors(async (req, res) => {
-	const product = await Product.getProductById(req.params.id);
+	const product = await Product.getById(req.params.id);
 	return res.status(200).json({ product });
 }));
 
