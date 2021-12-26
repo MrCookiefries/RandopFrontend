@@ -15,11 +15,6 @@ class Product {
 		this.price = price;
 	}
 
-	// price from 2680 -> $26.80
-	get formattedPrice() {
-		return `$${this.price / 100}`;
-	}
-
 	/**
 	 * check if a product already exists with a given id
 	 * if so throws an error
