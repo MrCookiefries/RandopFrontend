@@ -11,7 +11,7 @@ class Cart {
 	}
 
 	// checks if a duplicate entry already exists by primary key
-	static async duplicateCheck(userId, productId) {
+	static async checkDuplicate(userId, productId) {
 		const result = await db.query(
 			`SELECT quantity
 			FROM carts
@@ -28,12 +28,14 @@ class Cart {
 	// creates a new cart item for a user
 	static async addNew({ userId, productId, quantity }) {
 		// no duplicate primary keys allowed
-		await this.duplicateCheck(userId, productId);
+		await this.checkDuplicate(userId, productId);
 		const result = await db.query(
-			`INSERT INTO carts (user_id, product_id, quantity)
-			VALUES ($1, $2, $3) RETURNING user_id AS "userId",
+			`INSERT INTO carts 
+			(user_id, product_id ${quantity ? ", quantity" : ""})
+			VALUES ($1, $2 ${quantity ? ", $3" : ""})
+			RETURNING user_id AS "userId",
 			product_id AS "productId", quantity`,
-			[userId, productId, quantity]
+			quantity ? [userId, productId, quantity] : [userId, productId]
 		);
 
 		return new this(result.rows[0]);
@@ -91,7 +93,7 @@ class Cart {
 	}
 
 	// returns all the carts or the amount specified
-	static async getMany({ limit, offset }) {
+	static async getMany({ limit, offset } = {}) {
 		// only add in the filtering clauses if applicable
 		const result = await db.query(
 			`SELECT user_id AS "userId",

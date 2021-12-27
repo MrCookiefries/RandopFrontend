@@ -66,7 +66,6 @@ class User {
 
 		return new this(user);
 	}
-
 }
 
 module.exports = User;
