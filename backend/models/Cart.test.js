@@ -1,7 +1,7 @@
 const {
 	commonBeforeAll, commonBeforeEach,
 	commonAfterEach, commonAfterAll
-} = require("./commonSetups");
+} = require("../commonSetups");
 
 let userId;
 let newCart;

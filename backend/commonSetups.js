@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 
-const db = require("../database");
-const { bcryptWorkFactor } = require("../config");
+const db = require("./database");
+const { bcryptWorkFactor } = require("./config");
 
 // setup the database before testing
 const commonBeforeAll = async () => {

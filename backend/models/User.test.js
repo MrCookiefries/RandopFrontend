@@ -1,7 +1,7 @@
 const {
 	commonBeforeAll, commonBeforeEach,
 	commonAfterEach, commonAfterAll
-} = require("./commonSetups");
+} = require("../commonSetups");
 
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);
