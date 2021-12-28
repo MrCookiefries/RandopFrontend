@@ -45,7 +45,8 @@ describe("fetching", () => {
 		expect(product).toEqual(
 			expect.objectContaining({
 				...newProduct,
-				id: "p1"
+				id: "p1",
+				price: newProduct.price.toString()
 			})
 		);
 	});
@@ -57,7 +58,8 @@ describe("fetching", () => {
 			productsJest.push(
 				expect.objectContaining({
 					...newProduct,
-					id: `p${i}`
+					id: `p${i}`,
+					price: newProduct.price.toString()
 				})
 			);
 		}
@@ -81,8 +83,7 @@ describe("creation", () => {
 		expect(product).toEqual(expect.objectContaining({
 			...newProduct,
 			id: expect.any(String),
-			option1: null,
-			option2: null
+			price: newProduct.price.toString()
 		}));
 	});
 });
@@ -116,7 +117,8 @@ describe("update", () => {
 
 		expect(product).toEqual(expect.objectContaining({
 			...newProduct,
-			...newVals
+			...newVals,
+			price: newVals.price.toString()
 		}));
 	});
 });

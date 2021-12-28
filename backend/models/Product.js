@@ -12,7 +12,7 @@ class Product {
 		this.image = image;
 		this.option1 = option1;
 		this.option2 = option2;
-		this.price = price;
+		this.price = price.toString();
 	}
 
 	/**
