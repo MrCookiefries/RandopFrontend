@@ -8,6 +8,7 @@ const handleJsonValidator = require("../helpers/handleJsonValidator");
 const getManySchema = require("../jsonschemas/products/getMany.json");
 const addNewSchema = require("../jsonschemas/products/addNew.json");
 const updateSchema = require("../jsonschemas/products/update.json");
+const { ensureAdmin, ensureUser } = require("../middleware/auth");
 
 router.get("/", catchErrors(async (req, res) => {
 	parseStringNums(req.query, ["limit", "offset"]);
@@ -21,21 +22,27 @@ router.get("/:id", catchErrors(async (req, res) => {
 	return res.status(200).json({ product });
 }));
 
-router.post("/", catchErrors(async (req, res) => {
-	handleJsonValidator(req.body, addNewSchema);
-	const product = await Product.addNew(req.body);
-	return res.status(201).json({ product });
-}));
+router.post("/", [ensureUser, ensureAdmin],
+	catchErrors(async (req, res) => {
+		handleJsonValidator(req.body, addNewSchema);
+		const product = await Product.addNew(req.body);
+		return res.status(201).json({ product });
+	})
+);
 
-router.patch("/:id", catchErrors(async (req, res) => {
-	handleJsonValidator(req.body, updateSchema);
-	const product = await Product.updateById(req.params.id, req.body);
-	return res.status(200).json({ product });
-}));
+router.patch("/:id", [ensureUser, ensureAdmin],
+	catchErrors(async (req, res) => {
+		handleJsonValidator(req.body, updateSchema);
+		const product = await Product.updateById(req.params.id, req.body);
+		return res.status(200).json({ product });
+	})
+);
 
-router.delete("/:id", catchErrors(async (req, res) => {
-	await Product.deleteById(req.params.id);
-	return res.status(204).send();
-}));
+router.delete("/:id", [ensureUser, ensureAdmin],
+	catchErrors(async (req, res) => {
+		await Product.deleteById(req.params.id);
+		return res.status(204).send();
+	})
+);
 
 module.exports = router;
