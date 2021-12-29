@@ -42,9 +42,7 @@ describe("get /", () => {
 					id: `p${i}`,
 					name: "name",
 					image: "image",
-					price: "100",
-					option1: null,
-					option2: null
+					price: "100"
 				})
 			);
 		}
@@ -66,9 +64,7 @@ describe("get /", () => {
 					id: "p4",
 					name: "name",
 					image: "image",
-					price: "100",
-					option1: null,
-					option2: null
+					price: "100"
 				})
 			])
 		}));

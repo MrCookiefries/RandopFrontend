@@ -57,7 +57,8 @@ describe("fetching", () => {
 		for (let i = 1; i <= 6; i++) {
 			productsJest.push(
 				expect.objectContaining({
-					...newProduct,
+					name: newProduct.name,
+					image: newProduct.image,
 					id: `p${i}`,
 					price: newProduct.price.toString()
 				})
