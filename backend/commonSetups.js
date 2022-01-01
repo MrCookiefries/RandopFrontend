@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 
 const db = require("./database");
 const { bcryptWorkFactor } = require("./config");
+const createToken = require("./helpers/createToken");
 
 // setup the database before testing
 const commonBeforeAll = async () => {
@@ -67,7 +68,12 @@ const commonAfterAll = async () => {
 	await db.end();
 }
 
+// JWTs for testing admin / non admin
+const userToken = createToken({ id: 1, isAdmin: false });
+const adminToken = createToken({ id: 2, isAdmin: true });
+
 module.exports = {
 	commonBeforeAll, commonBeforeEach,
-	commonAfterEach, commonAfterAll
+	commonAfterEach, commonAfterAll,
+	userToken, adminToken
 };
