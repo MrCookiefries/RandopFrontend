@@ -3,7 +3,6 @@ const {
 	commonAfterEach, commonAfterAll
 } = require("../commonSetups");
 
-let userId;
 let newCart;
 const quantity = 4;
 
@@ -40,26 +39,14 @@ describe("helpers", () => {
 });
 
 describe("fetching", () => {
-	test("not found", async () => {
-		await expect(
-			Cart.getById(0, "nope")
-		).rejects.toThrowError(ExpressError);
+	test("not found user", async () => {
+		const cart = await Cart.getByUser(0);
+
+		expect(cart).toEqual([]);
 	});
 
-	test("get one", async () => {
-		const cart = await Cart.getById(userId, "p1");
-
-		expect(cart).toEqual(
-			expect.objectContaining({
-				userId,
-				productId: "p1",
-				quantity: 2
-			})
-		);
-	});
-
-	test("get many", async () => {
-		const carts = await Cart.getMany();
+	test("get by user", async () => {
+		const carts = await Cart.getByUser(newCart.userId);
 		const cartsJest = [];
 		for (let i = 1; i <= 6; i++) {
 			cartsJest.push(
@@ -111,7 +98,7 @@ describe("deletion", () => {
 describe("update", () => {
 	test("not found", async () => {
 		await expect(
-			Cart.updateById(0, "nope")
+			Cart.updateById({ userId: 0, productId: "nope" }, { quantity })
 		).rejects.toThrowError(ExpressError);
 	});
 
