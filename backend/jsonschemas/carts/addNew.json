@@ -39,7 +39,7 @@
         },
         "quantity": {
             "$id": "#/properties/quantity",
-            "default": 0,
+            "default": 1,
             "description": "An explanation about the purpose of this instance.",
             "examples": [
                 2
