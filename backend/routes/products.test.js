@@ -262,8 +262,6 @@ describe("patch /:id", () => {
 	});
 
 	test("not found", async () => {
-		newVals.year = 2891;
-
 		const resp = await request(app)
 			.patch(`/products/nope`)
 			.send(newVals)
