@@ -26,9 +26,9 @@
                 "test@gmail.com"
             ],
             "maxLength": 40,
-            "minLength": 6,
+            "minLength": 3,
             "title": "The email schema",
-            "pattern": "^\\S+@\\S+\\.\\S+$",
+            "pattern": "^[a-zA-Z0-9]*@[a-zA-Z0-9]*$",
             "type": "string"
         },
         "name": {

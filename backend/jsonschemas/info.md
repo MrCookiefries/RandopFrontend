@@ -6,7 +6,7 @@ Made the schema files with this [website][tool].
 
 ### Users
 
-Regex pattern for email validation was adapted from [this post][emailregex] on December 19th, 2021.
+Regex pattern for email validation was inspired from [this article][regex] on January 5th, 2022.
 
 [tool]: https://jsonschema.net/
-[emailregex]: https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression
+[regex]: https://howtodoinjava.com/java/regex/match-any-set-of-characters/
