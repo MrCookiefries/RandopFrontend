@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 const {
 	authenticateJWT,
 	ensureUser,
-	ensureAdmin
+	ensureAdmin,
+	ensureOwnerOrAdmin
 } = require("./auth");
 const { secretKey } = require("../config");
 const ExpressError = require("../ExpressError");
@@ -74,6 +75,49 @@ describe("ensure user", () => {
 		};
 
 		expect(ensureUser(req, res, next)).toBeUndefined();
+	});
+});
+
+describe("ensure owner or admin", () => {
+	let userId;
+	let req;
+	let res;
+
+	beforeEach(() => {
+		userId = 1;
+		req = { params: { userId } };
+		res = {
+			user: {
+				id: userId,
+				isAdmin: false
+			}
+		};
+	});
+
+	test("logged in", () => {
+		res.user.isAdmin = true;
+		const next = err => {
+			expect(err).toBeUndefined();
+		};
+
+		expect(ensureOwnerOrAdmin(req, res, next)).toBeUndefined();
+	});
+
+	test("owner", () => {
+		const next = err => {
+			expect(err).toBeUndefined();
+		};
+
+		expect(ensureOwnerOrAdmin(req, res, next)).toBeUndefined();
+	});
+
+	test("non owner", () => {
+		req.params.userId = 2;
+		const next = err => {
+			expect(err).toBeInstanceOf(ExpressError);
+		};
+
+		expect(ensureOwnerOrAdmin(req, res, next)).toBeUndefined();
 	});
 });
 
