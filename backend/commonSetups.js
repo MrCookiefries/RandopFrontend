@@ -24,8 +24,9 @@ const commonBeforeAll = async () => {
 		('p6', 'name', 'image', 100)
 		`
 	);
+
 	const hash = await bcrypt.hash("password", bcryptWorkFactor);
-	await db.query(
+	const { rows: userData } = await db.query(
 		`INSERT INTO users
 		(email, name, password, is_admin)
 		VALUES
@@ -35,9 +36,11 @@ const commonBeforeAll = async () => {
 		('u@4', 'name', '${hash}', FALSE),
 		('u@5', 'name', '${hash}', FALSE),
 		('u@6', 'name', '${hash}', FALSE)
+		RETURNING id
 		`
 	);
-	const ids = (await db.query(`SELECT id FROM users`)).rows.map(r => r.id);
+
+	const ids = userData.map(d => d.id);
 	await db.query(
 		`INSERT INTO carts
 		(product_id, user_id, quantity)
