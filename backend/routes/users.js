@@ -7,6 +7,7 @@ const handleJsonValidator = require("../helpers/handleJsonValidator");
 const newUserSchema = require("../jsonschemas/users/new.json");
 const createToken = require("../helpers/createToken");
 
+// register
 router.post("/", catchErrors(async (req, res) => {
 	handleJsonValidator(req.body, newUserSchema);
 	const user = await User.register(req.body);
