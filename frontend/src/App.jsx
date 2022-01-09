@@ -12,10 +12,10 @@ const App = () => {
 	return (
 		<div className="App">
 			<Theme>
-				<AppRoutes />
 				<Button onClick={toggleMode} variant="outlined" color="secondary">
 					hi
 				</Button>
+				<AppRoutes />
 			</Theme>
 		</div>
 	);
