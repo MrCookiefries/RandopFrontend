@@ -1,7 +1,10 @@
 import { themeTypes } from "../actionTypes";
 
+const isDark = window.matchMedia
+	&& window.matchMedia("(prefers-color-scheme: dark)").matches;
+
 const initialState = {
-	isDark: true
+	isDark
 };
 
 const themeReducer = (state = initialState, action) => {
