@@ -19,6 +19,18 @@ const productActions = {
 	loadMany: products => ({
 		type: productTypes.loadMany, payload: products
 	}),
+	fetchOne: (id) => async dispatch => {
+		try {
+			const resp = await axios({
+				method: "GET",
+				url: `${baseUrl}/products/${id}`
+			});
+			const { product } = resp.data;
+			dispatch(productActions.loadOne(product));
+		} catch (err) {
+			console.error(err);
+		}
+	},
 	fetchMany: (limit = 10, offset) => async dispatch => {
 		try {
 			const resp = await axios({
