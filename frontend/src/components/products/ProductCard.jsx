@@ -1,3 +1,5 @@
+import { Link } from "@mui/material";
+import { Link as RouteLink } from "react-router-dom";
 import formatPrice from "../../helpers/formatPrice";
 
 const ProductCard = ({ id, name, image, price }) => {
@@ -11,6 +13,9 @@ const ProductCard = ({ id, name, image, price }) => {
 				</li>
 				<li>price: {formatPrice(price)}</li>
 			</ul>
+			<Link component={RouteLink} to={id}>
+				View details
+			</Link>
 			<hr />
 		</div>
 	);

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { Outlet } from "react-router";
 import productActions from "../../store/actions/productActions";
 import ProductCard from "./ProductCard";
 
@@ -8,12 +9,11 @@ const ProductList = () => {
 	const dispatch = useDispatch();
 	const isLoading = !Object.keys(products).length;
 
-	useEffect(() => {
-		dispatch(productActions.fetchMany());
-	}, [dispatch]);
+	useEffect(() => dispatch(productActions.fetchMany()), [dispatch]);
 
 	return (
 		<section>
+			<Outlet />
 			<p>products</p>
 			{isLoading ? (
 				<p>loading...</p>
