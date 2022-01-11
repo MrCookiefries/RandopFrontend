@@ -19,11 +19,9 @@ const FormikForm = ({
 						<FormField key={k} name={k} errors={errors} touched={touched} />
 					))}
 					<button
-						// figure out what touched contains
-						// disable button when not ready
 						disabled={
 							Object.keys(errors).length ||
-							Object.keys(touched).length === Object.keys(initialValues).length
+							Object.keys(touched).length !== Object.keys(initialValues).length
 						}
 						type="submit"
 					>
