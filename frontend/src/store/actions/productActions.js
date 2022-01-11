@@ -1,7 +1,7 @@
 import axios from "axios";
 import { productTypes } from "../actionTypes";
-
-const baseUrl = "http://localhost:3001";
+import { baseUrl } from "../../config";
+import handleAxiosError from "../../helpers/handleAxiosError";
 
 const productActions = {
 	add: newProduct => ({
@@ -28,7 +28,7 @@ const productActions = {
 			const { product } = resp.data;
 			dispatch(productActions.loadOne(product));
 		} catch (err) {
-			console.error(err);
+			handleAxiosError(err);
 		}
 	},
 	fetchMany: (limit = 10, offset) => async dispatch => {
@@ -41,7 +41,7 @@ const productActions = {
 			const { products } = resp.data;
 			dispatch(productActions.loadMany(products));
 		} catch (err) {
-			console.error(err);
+			handleAxiosError(err);
 		}
 	}
 };

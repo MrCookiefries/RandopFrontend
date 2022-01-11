@@ -7,6 +7,14 @@ export const themeTypes = {
 	toggle: makeTheme("toggle")
 };
 
+// users
+const makeUser = makeTypeCreator("user");
+export const userTypes = {
+	register: makeUser("register"),
+	login: makeUser("login"),
+	load: makeUser("load")
+};
+
 // products
 const makeProduct = makeTypeCreator("product");
 export const productTypes = {
@@ -15,4 +23,11 @@ export const productTypes = {
 	delete: makeProduct("delete"),
 	loadMany: makeProduct("loadMany"),
 	loadOne: makeProduct("loadOne")
+};
+
+// messages
+const makeMessage = makeTypeCreator("message");
+export const messageTypes = {
+	add: makeMessage("add"),
+	delete: makeMessage("delete")
 };
