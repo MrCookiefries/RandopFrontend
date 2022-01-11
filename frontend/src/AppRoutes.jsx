@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import LoginForm from "./components/forms/LoginForm";
 import RegisterForm from "./components/forms/RegisterForm";
 import Home from "./components/home/Home";
 import Layout from "./components/layout/Layout";
@@ -13,7 +14,7 @@ const AppRoutes = () => (
 				<Route path=":id" element={<ProductDetails />} />
 			</Route>
 			<Route path="cart" element={<p>cart</p>} />
-			<Route path="login" element={<p>login</p>} />
+			<Route path="login" element={<LoginForm />} />
 			<Route path="register" element={<RegisterForm />} />
 		</Route>
 		<Route path="*" element={<p>not found</p>} />
