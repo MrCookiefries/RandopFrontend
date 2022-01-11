@@ -1,37 +1,19 @@
-import axios from "axios";
 import { userTypes } from "../actionTypes";
-import { baseUrl } from "../../config";
-import handleAxiosError from "../../helpers/handleAxiosError";
+import Api from "../../helpers/api";
 
 const userActions = {
 	load: (user, token) => ({
 		type: userTypes.load, payload: user, token
 	}),
 	login: credentials => async dispatch => {
-		try {
-			const resp = await axios({
-				method: "POST",
-				url: `${baseUrl}/auth/`,
-				data: credentials
-			});
-			const { user, token } = resp.data;
-			dispatch(userActions.load(user, token));
-		} catch (err) {
-			handleAxiosError(err);
-		}
+		const resp = await Api.login(credentials);
+		if (!resp) return;
+		dispatch(userActions.load(resp.user, resp.token));
 	},
 	register: (newUser) => async dispatch => {
-		try {
-			const resp = await axios({
-				method: "POST",
-				url: `${baseUrl}/users`,
-				data: newUser
-			});
-			const { user, token } = resp.data;
-			dispatch(userActions.load(user, token));
-		} catch (err) {
-			handleAxiosError(err);
-		}
+		const resp = await Api.register(newUser);
+		if (!resp) return;
+		dispatch(userActions.load(resp.user, resp.token));
 	}
 };
 

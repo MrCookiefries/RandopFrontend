@@ -1,7 +1,5 @@
-import axios from "axios";
 import { productTypes } from "../actionTypes";
-import { baseUrl } from "../../config";
-import handleAxiosError from "../../helpers/handleAxiosError";
+import Api from "../../helpers/api";
 
 const productActions = {
 	add: newProduct => ({
@@ -20,29 +18,14 @@ const productActions = {
 		type: productTypes.loadMany, payload: products
 	}),
 	fetchOne: (id) => async dispatch => {
-		try {
-			const resp = await axios({
-				method: "GET",
-				url: `${baseUrl}/products/${id}`
-			});
-			const { product } = resp.data;
-			dispatch(productActions.loadOne(product));
-		} catch (err) {
-			handleAxiosError(err);
-		}
+		const resp = await Api.getProductById(id);
+		if (!resp) return;
+		dispatch(productActions.loadOne(resp.product));
 	},
 	fetchMany: (limit = 10, offset) => async dispatch => {
-		try {
-			const resp = await axios({
-				method: "GET",
-				url: `${baseUrl}/products`,
-				params: { limit, offset }
-			});
-			const { products } = resp.data;
-			dispatch(productActions.loadMany(products));
-		} catch (err) {
-			handleAxiosError(err);
-		}
+		const resp = await Api.getProducts(limit, offset);
+		if (!resp) return;
+		dispatch(productActions.loadMany(resp.products));
 	}
 };
 
