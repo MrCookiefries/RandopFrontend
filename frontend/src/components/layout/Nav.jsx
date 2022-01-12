@@ -1,7 +1,16 @@
-import { AppBar, Toolbar, Link } from "@mui/material";
+import { AppBar, Toolbar, Link, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import userActions from "../../store/actions/userActions";
 
 const Nav = () => {
+	const isLoggedIn = useSelector((store) => store.user.token);
+	const dispatch = useDispatch();
+
+	const logout = () => {
+		dispatch(userActions.logout());
+	};
+
 	return (
 		<nav>
 			<AppBar position="sticky">
@@ -12,12 +21,22 @@ const Nav = () => {
 					<Link component={NavLink} to="products">
 						Products
 					</Link>
-					<Link component={NavLink} to="login">
-						Login
-					</Link>
-					<Link component={NavLink} to="register">
-						Register
-					</Link>
+					{isLoggedIn ? (
+						<>
+							<Button onClick={logout} variant="contained">
+								Logout
+							</Button>
+						</>
+					) : (
+						<>
+							<Link component={NavLink} to="login">
+								Login
+							</Link>
+							<Link component={NavLink} to="register">
+								Register
+							</Link>
+						</>
+					)}
 				</Toolbar>
 			</AppBar>
 		</nav>
