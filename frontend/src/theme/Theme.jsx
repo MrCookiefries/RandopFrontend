@@ -12,6 +12,11 @@ const Theme = ({ children }) => {
 		() =>
 			createTheme({
 				palette: getPalette(mode),
+				typography: {
+					button: {
+						textTransform: "none",
+					},
+				},
 			}),
 		[mode]
 	);
