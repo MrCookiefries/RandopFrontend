@@ -12,7 +12,8 @@ const makeUser = makeTypeCreator("user");
 export const userTypes = {
 	register: makeUser("register"),
 	login: makeUser("login"),
-	load: makeUser("load")
+	load: makeUser("load"),
+	logout: makeUser("logout")
 };
 
 // products

@@ -14,7 +14,10 @@ const userActions = {
 		const resp = await Api.register(newUser);
 		if (!resp) return;
 		dispatch(userActions.load(resp.user, resp.token));
-	}
+	},
+	logout: () => ({
+		type: userTypes.logout
+	})
 };
 
 export default userActions;

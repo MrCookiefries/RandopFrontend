@@ -1,5 +1,5 @@
 import { userTypes } from "../actionTypes";
-import { getSavedToken, saveToken } from "../../helpers/token";
+import { getSavedToken, removeToken, saveToken } from "../../helpers/token";
 
 const initialState = { token: getSavedToken() };
 
@@ -12,6 +12,9 @@ const userReducer = (state = initialState, action) => {
 			payload.token = token;
 			saveToken(token);
 			return payload;
+		case userTypes.logout:
+			removeToken();
+			return {};
 		default:
 			return state;
 	}
