@@ -1,16 +1,13 @@
 import Api from "./api.js";
-console.log(Api);
 
 export const getSavedToken = () => {
 	const token = window.localStorage.getItem("token");
-	console.log(Api);
-	// Api.token = token || undefined;
+	Api.token = token || undefined;
 	return token || undefined;
 };
 
 export const saveToken = token => {
-	window.localStorage.setItem("token", token);
-	console.log(Api);
+	window.localStorage.setItem("token", token || "");
 	Api.token = token || undefined;
 };
 

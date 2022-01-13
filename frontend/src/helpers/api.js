@@ -9,7 +9,6 @@ class Api {
 
 	// generic axios request builder & maker
 	static async request(endpoint, data = {}, method = "GET") {
-		console.debug(this.token);
 		const url = `${baseUrl}/${endpoint}`;
 		const headers = { Authorization: `Bearer ${this.token}` };
 		const params = method === "GET" ? data : {};
