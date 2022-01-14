@@ -1,6 +1,6 @@
 CREATE TABLE users (
 	id SERIAL,
-	stripe_id TEXT,
+	stripe_id TEXT DEFAULT NULL,
 	email VARCHAR(254) NOT NULL,
 	name VARCHAR(70) NOT NULL,
 	password TEXT NOT NULL,
