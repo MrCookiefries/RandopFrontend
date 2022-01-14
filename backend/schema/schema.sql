@@ -70,7 +70,7 @@ CREATE TABLE carts_products (
 CREATE TABLE orders (
 	id SERIAL,
 	user_id INTEGER NOT NULL,
-	checkout_date TIMESTAMPTZ NOT NULL DEFAULT NOW()
+	checkout_date TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
 	CONSTRAINT fk_user
 		FOREIGN KEY (user_id)
@@ -82,7 +82,7 @@ CREATE TABLE orders (
 );
 
 -- join a product to an order
-CREATE TABLE carts_products (
+CREATE TABLE orders_products (
 	order_id INTEGER NOT NULL,
 	product_id TEXT NOT NULL,
 	quantity INTEGER NOT NULL DEFAULT 1,
