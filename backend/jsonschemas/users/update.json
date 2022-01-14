@@ -1,0 +1,28 @@
+{
+    "$id": "http://example.com/example.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "default": {},
+    "description": "The root schema comprises the entire JSON document.",
+    "examples": [
+        {
+            "stripeId": "aklgj39875akljhf387"
+        }
+    ],
+    "required": [],
+    "title": "The root schema",
+    "type": "object",
+    "properties": {
+        "stripeId": {
+            "$id": "#/properties/stripeId",
+            "default": "",
+            "description": "An explanation about the purpose of this instance.",
+            "examples": [
+                "aklgj39875akljhf387"
+            ],
+            "title": "The stripeId schema",
+            "minLength": 1,
+            "type": "string"
+        }
+    },
+    "additionalProperties": false
+}

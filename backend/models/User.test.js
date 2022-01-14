@@ -45,6 +45,7 @@ describe("register", () => {
 			name,
 			isAdmin: false,
 			id: expect.any(Number),
+			stripeId: null
 		}));
 	});
 });
@@ -70,6 +71,29 @@ describe("login", () => {
 			email: credentials.email,
 			name,
 			isAdmin: true,
+			id: expect.any(Number),
+			stripeId: null
+		}));
+	});
+});
+
+describe("update", () => {
+	test("not found", async () => {
+		await expect(
+			User.updateById("nope")
+		).rejects.toThrowError(ExpressError);
+	});
+
+	test("update one", async () => {
+		const newVals = { stripeId: "aklgjl3at499agk" };
+		const user = await (
+			await User.register({ ...newLogin, name })
+		).update(newVals);
+
+		expect(user).toEqual(expect.objectContaining({
+			email: newLogin.email,
+			...newVals,
+			isAdmin: false,
 			id: expect.any(Number),
 		}));
 	});

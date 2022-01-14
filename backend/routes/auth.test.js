@@ -51,7 +51,8 @@ describe("post /", () => {
 				email: newLogin.email,
 				id: expect.any(Number),
 				isAdmin: true,
-				name: "name"
+				name: "name",
+				stripeId: null
 			}),
 			token: expect.any(String)
 		}));

@@ -10,6 +10,7 @@ const commonBeforeAll = async () => {
 	await db.query("DELETE FROM products");
 	await db.query("DELETE FROM users");
 	await db.query("DELETE FROM carts");
+	await db.query("DELETE FROM orders");
 
 	// fill out the tables with sample data
 	await db.query(
@@ -26,32 +27,26 @@ const commonBeforeAll = async () => {
 	);
 
 	const hash = await bcrypt.hash("password", bcryptWorkFactor);
-	const { rows: userData } = await db.query(
+	await db.query(
 		`INSERT INTO users
-		(email, name, password, is_admin)
+		(id, email, name, password, is_admin)
 		VALUES
-		('u@1', 'name', '${hash}', TRUE),
-		('u@2', 'name', '${hash}', TRUE),
-		('u@3', 'name', '${hash}', FALSE),
-		('u@4', 'name', '${hash}', FALSE),
-		('u@5', 'name', '${hash}', FALSE),
-		('u@6', 'name', '${hash}', FALSE)
-		RETURNING id
+		(1, 'u@1', 'name', '${hash}', TRUE),
+		(2, 'u@2', 'name', '${hash}', TRUE),
+		(3, 'u@3', 'name', '${hash}', FALSE),
+		(4, 'u@4', 'name', '${hash}', FALSE),
+		(5, 'u@5', 'name', '${hash}', FALSE),
+		(6, 'u@6', 'name', '${hash}', FALSE)
 		`
 	);
 
-	const ids = userData.map(d => d.id);
 	await db.query(
 		`INSERT INTO carts
-		(product_id, user_id, quantity)
+		(id, user_id)
 		VALUES
-		('p1', ${ids[0]}, 2),
-		('p2', ${ids[0]}, 2),
-		('p2', ${ids[1]}, 2),
-		('p3', ${ids[2]}, 2),
-		('p4', ${ids[3]}, 2),
-		('p1', ${ids[4]}, 2),
-		('p1', ${ids[5]}, 2)
+		(1, 1),
+		(2, 3),
+		(3, 3)
 		`
 	);
 }
@@ -72,8 +67,8 @@ const commonAfterAll = async () => {
 }
 
 // JWTs for testing admin / non admin
-const userToken = createToken({ id: 1, isAdmin: false });
-const adminToken = createToken({ id: 2, isAdmin: true });
+const userToken = createToken({ id: 3, isAdmin: false });
+const adminToken = createToken({ id: 1, isAdmin: true });
 
 module.exports = {
 	commonBeforeAll, commonBeforeEach,

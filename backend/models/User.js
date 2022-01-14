@@ -3,11 +3,13 @@ const bcrypt = require("bcrypt");
 const db = require("../database");
 const ExpressError = require("../ExpressError");
 const { bcryptWorkFactor } = require("../config");
+const sqlPartialUpdate = require("../helpers/sqlPartialUpdate");
 
 // represents a user row in the users table
 class User {
-	constructor({ id, email, name, isAdmin }) {
+	constructor({ id, stripeId, email, name, isAdmin }) {
 		this.id = id;
+		this.stripeId = stripeId;
 		this.email = email;
 		this.name = name;
 		this.isAdmin = isAdmin;
@@ -39,7 +41,8 @@ class User {
 			`INSERT INTO users
 			(email, name, password)
 			VALUES ($1, $2, $3)
-			RETURNING id, email, name, is_admin AS "isAdmin"`,
+			RETURNING id, stripe_id AS "stripeId",
+			email, name, is_admin AS "isAdmin"`,
 			[email, name, hashedPassword]
 		);
 
@@ -49,7 +52,8 @@ class User {
 	// returns a user from credentials
 	static async login({ email, password }) {
 		const result = await db.query(
-			`SELECT id, email, name, password, is_admin AS "isAdmin"
+			`SELECT id, stripe_id AS "stripeId", email,
+			name, password, is_admin AS "isAdmin"
 			FROM users WHERE email = $1`,
 			[email]
 		);
@@ -61,10 +65,36 @@ class User {
 		// check if the passwords match
 		const validPassword = await bcrypt.compare(password, user.password);
 		if (!validPassword) {
-			throw new ExpressError(`Incorrect password`, 401);
+			throw new ExpressError(`Wrong password for email: ${email}`, 401);
 		}
 
 		return new this(user);
+	}
+
+	// updates a user's information by the id & returns it
+	static async updateById(id, data = {}) {
+		// generate the set portion of the query & the values array
+		const { setColumns, values } = sqlPartialUpdate(data);
+		const result = await db.query(
+			`UPDATE users
+			SET ${setColumns}
+			WHERE id = $${values.length + 1}
+			RETURNING id, stripe_id AS "stripeId",
+			email, name, is_admin AS "isAdmin"`,
+			[...values, id]
+		);
+
+		const user = result.rows[0];
+		if (!user) {
+			throw new ExpressError(`No user found with ID: ${id}`, 400);
+		}
+
+		return new this(user);
+	}
+
+	// update a product from instance
+	async update(data) {
+		return await User.updateById(this.id, data);
 	}
 }
 
