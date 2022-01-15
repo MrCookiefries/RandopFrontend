@@ -49,6 +49,14 @@ const commonBeforeAll = async () => {
 		(3, 3)
 		`
 	);
+
+	await db.query(
+		`INSERT INTO carts_products
+		(cart_id, product_id)
+		VALUES
+		(2, 'p1'),
+		(2, 'p2')`
+	);
 }
 
 // begin a DB transaction
