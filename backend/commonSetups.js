@@ -55,7 +55,8 @@ const commonBeforeAll = async () => {
 		(cart_id, product_id)
 		VALUES
 		(2, 'p1'),
-		(2, 'p2')`
+		(2, 'p2'),
+		(1, 'p1')`
 	);
 }
 

@@ -3,10 +3,9 @@ const ExpressError = require("../ExpressError");
 
 // represents a cart row in the carts table
 class Cart {
-	constructor({ id, userId, items = [] }) {
+	constructor({ id, userId }) {
 		this.id = id;
 		this.userId = userId;
-		this.items = items;
 	}
 
 	// creates a new cart for a user
@@ -54,6 +53,23 @@ class Cart {
 		);
 
 		return this.addMultiple(result.rows);
+	}
+
+	// gets a cart by id
+	static async getById(cartId) {
+		const result = await db.query(
+			`SELECT id, user_id AS "userId"
+			FROM carts WHERE id = $1`,
+			[cartId]
+		);
+
+		const cart = result.rows[0];
+
+		if (!cart) {
+			throw new ExpressError(`No cart found with ID: ${cartId}`, 400);
+		}
+
+		return new this(cart);
 	}
 }
 

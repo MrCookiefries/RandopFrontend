@@ -3,10 +3,8 @@ const router = Router();
 
 const catchErrors = require("../middleware/catchErrors");
 const Cart = require("../models/Cart");
-const handleJsonValidator = require("../helpers/handleJsonValidator");
-const addNewSchema = require("../jsonschemas/carts/addNew.json");
-const updateSchema = require("../jsonschemas/carts/update.json");
-const { ensureUser, ensureOwnerOrAdmin } = require("../middleware/auth");
+const { ensureUser } = require("../middleware/auth");
+const checkOwner = require("../helpers/checkOwner");
 
 router.get("/", [ensureUser],
 	catchErrors(async (req, res) => {
@@ -17,24 +15,21 @@ router.get("/", [ensureUser],
 
 router.post("/", [ensureUser],
 	catchErrors(async (req, res) => {
-		req.body.userId = res.user.id;
-		handleJsonValidator(req.body, addNewSchema);
-		const cart = await Cart.addNew(req.body);
+		const cart = await Cart.addNew(res.user.id);
 		return res.status(201).json({ cart });
 	})
 );
 
-router.patch("/:userId/:productId", [ensureUser, ensureOwnerOrAdmin],
+router.delete("/:cartId", [ensureUser],
 	catchErrors(async (req, res) => {
-		handleJsonValidator(req.body, updateSchema);
-		const cart = await Cart.updateById(req.params, req.body);
-		return res.status(200).json({ cart });
-	})
-);
+		const { cartId } = req.params;
+		// fetch cart by ID
+		const cart = await Cart.getById(cartId);
 
-router.delete("/:userId/:productId", [ensureUser, ensureOwnerOrAdmin],
-	catchErrors(async (req, res) => {
-		await Cart.deleteById(req.params);
+		// ensure user owns the cart
+		checkOwner(res.user.id, cart.userId);
+
+		await cart.delete();
 		return res.status(204).send();
 	})
 );

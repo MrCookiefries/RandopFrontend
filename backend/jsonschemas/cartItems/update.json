@@ -1,0 +1,55 @@
+{
+    "$id": "http://example.com/example.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "default": {},
+    "description": "The root schema comprises the entire JSON document.",
+    "examples": [
+        {
+            "cartId": 7,
+            "productId": "agkjl387gakig",
+            "quantity": 3
+        }
+    ],
+    "required": [
+        "cartId",
+        "productId"
+    ],
+    "title": "The root schema",
+    "type": "object",
+    "properties": {
+        "cartId": {
+            "$id": "#/properties/cartId",
+            "default": 0,
+            "description": "An explanation about the purpose of this instance.",
+            "examples": [
+                7
+            ],
+            "title": "The cartId schema",
+            "minimum": 1,
+            "type": "integer"
+        },
+        "productId": {
+            "$id": "#/properties/productId",
+            "default": "",
+            "description": "An explanation about the purpose of this instance.",
+            "examples": [
+                "agkjl387gakig"
+            ],
+            "title": "The productId schema",
+            "minLength": 1,
+            "type": "string"
+        },
+        "quantity": {
+            "$id": "#/properties/quantity",
+						"minimum": 1,
+            "type": "integer",
+            "title": "The quantity schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                3
+            ]
+        }
+    },
+    "additionalProperties": false
+}

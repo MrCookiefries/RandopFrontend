@@ -5,48 +5,50 @@
     "description": "The root schema comprises the entire JSON document.",
     "examples": [
         {
-            "userId": 1,
-            "productId": "testId1",
-            "quantity": 2
+            "cartId": 7,
+            "productId": "agkjl387gakig",
+            "quantity": 3
         }
     ],
     "required": [
-        "userId",
+        "cartId",
         "productId"
     ],
     "title": "The root schema",
     "type": "object",
     "properties": {
-        "userId": {
-            "$id": "#/properties/userId",
-            "type": "integer",
-            "title": "The userId schema",
-            "description": "An explanation about the purpose of this instance.",
+        "cartId": {
+            "$id": "#/properties/cartId",
             "default": 0,
+            "description": "An explanation about the purpose of this instance.",
             "examples": [
-                1
-            ]
+                7
+            ],
+            "title": "The cartId schema",
+            "minimum": 1,
+            "type": "integer"
         },
         "productId": {
             "$id": "#/properties/productId",
-            "type": "string",
-            "title": "The productId schema",
-            "description": "An explanation about the purpose of this instance.",
             "default": "",
+            "description": "An explanation about the purpose of this instance.",
             "examples": [
-                "testId1"
-            ]
+                "agkjl387gakig"
+            ],
+            "title": "The productId schema",
+            "minLength": 1,
+            "type": "string"
         },
         "quantity": {
             "$id": "#/properties/quantity",
-            "default": 1,
-            "description": "An explanation about the purpose of this instance.",
-            "examples": [
-                2
-            ],
+						"minimum": 1,
+            "type": "integer",
             "title": "The quantity schema",
-            "minimum": 1,
-            "type": "integer"
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                3
+            ]
         }
     },
     "additionalProperties": true

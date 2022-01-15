@@ -12,6 +12,7 @@ const Cart = require("./Cart");
 const ExpressError = require("../ExpressError");
 
 const userId = 3;
+const cartId = 2;
 
 describe("fetching", () => {
 	test("not found user", async () => {
@@ -27,8 +28,7 @@ describe("fetching", () => {
 			cartsJest.push(
 				expect.objectContaining({
 					id: i,
-					userId,
-					items: expect.any(Array)
+					userId
 				})
 			);
 		}
@@ -36,6 +36,21 @@ describe("fetching", () => {
 		expect(carts).toEqual(
 			expect.arrayContaining(cartsJest)
 		);
+	});
+
+	test("not found id", async () => {
+		await expect(
+			Cart.getById(0)
+		).rejects.toThrowError(ExpressError);
+	});
+
+	test("get by id", async () => {
+		const cart = await Cart.getById(cartId);
+
+		expect(cart).toEqual(expect.objectContaining({
+			id: cartId,
+			userId
+		}));
 	});
 });
 
@@ -46,8 +61,7 @@ describe("creation", () => {
 
 		expect(cart).toEqual(expect.objectContaining({
 			id: expect.any(Number),
-			userId: newCartUserId,
-			items: expect.any(Array)
+			userId: newCartUserId
 		}));
 	});
 });
