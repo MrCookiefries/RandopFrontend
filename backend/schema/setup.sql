@@ -22,3 +22,5 @@ CREATE DATABASE randop_test;
 
 -- add tables & leave them empty
 \i schema.sql
+-- set starting sequence values to 11
+\i testSequences.sql
