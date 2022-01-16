@@ -23,7 +23,7 @@ class Order {
 	}
 
 	// creates a new order for a user from cart
-	// & copies items over as well
+	// & copies items over as well - deleting the old cart
 	static async addNew(cartId) {
 		// can't have the same order twice
 		await this.checkDuplicate(cartId);
