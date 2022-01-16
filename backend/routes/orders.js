@@ -31,6 +31,9 @@ router.post("/:cartId", [ensureUser],
 		checkOwner(res.user.id, cart.userId);
 
 		const order = await Order.addNew(cartId);
+		// delete cart after it's data has been moved to an order
+		await Cart.deleteById(cartId);
+
 		return res.status(201).json({ order });
 	})
 );
