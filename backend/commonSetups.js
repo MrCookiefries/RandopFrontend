@@ -46,7 +46,9 @@ const commonBeforeAll = async () => {
 		VALUES
 		(1, 1),
 		(2, 3),
-		(3, 3)
+		(3, 3),
+		(4, 3),
+		(5, 5)
 		`
 	);
 
@@ -56,6 +58,27 @@ const commonBeforeAll = async () => {
 		VALUES
 		(2, 'p1'),
 		(2, 'p2'),
+		(1, 'p1'),
+		(4, 'p3'),
+		(4, 'p6')`
+	);
+
+	await db.query(
+		`INSERT INTO orders
+		(id, user_id)
+		VALUES
+		(1, 1),
+		(2, 3),
+		(3, 3)
+		`
+	);
+
+	await db.query(
+		`INSERT INTO orders_products
+		(order_id, product_id)
+		VALUES
+		(3, 'p1'),
+		(3, 'p2'),
 		(1, 'p1')`
 	);
 }
