@@ -17,6 +17,7 @@ app.use("/products", require("./routes/products"));
 app.use("/carts", require("./routes/carts"));
 app.use("/cartItems", require("./routes/cartItems"));
 app.use("/orders", require("./routes/orders"));
+app.use("/customers", require("./routes/customers"));
 
 // generate custom errors
 const ExpressError = require("./ExpressError");

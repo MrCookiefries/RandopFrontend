@@ -10,6 +10,7 @@
     "jsonschema": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.1",
+    "stripe": "^8.197.0",
     "uuid": "^8.3.2"
   },
   "scripts": {
