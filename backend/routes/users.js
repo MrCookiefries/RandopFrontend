@@ -7,7 +7,19 @@ const handleJsonValidator = require("../helpers/handleJsonValidator");
 const newUserSchema = require("../jsonschemas/users/new.json");
 const updateUserSchema = require("../jsonschemas/users/update.json");
 const createToken = require("../helpers/createToken");
-const { ensureUser, ensureOwnerOrAdmin } = require("../middleware/auth");
+const {
+	ensureUser,
+	ensureOwnerOrAdmin,
+	ensureOwner
+} = require("../middleware/auth");
+
+router.get("/:userId", [ensureUser, ensureOwner],
+	catchErrors(async (req, res) => {
+		// res user id matches req param id from ensureOwner middleware
+		const user = await User.getById(res.user.id);
+		return res.status(200).json({ user });
+	})
+);
 
 // register
 router.post("/", catchErrors(async (req, res) => {

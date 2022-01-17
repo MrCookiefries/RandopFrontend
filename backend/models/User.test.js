@@ -94,7 +94,23 @@ describe("update", () => {
 			email: newLogin.email,
 			...newVals,
 			isAdmin: false,
-			id: expect.any(Number),
+			id: expect.any(Number)
 		}));
+	});
+});
+
+describe("get", () => {
+	test("by id", async () => {
+		const user = await User.getById(1);
+		expect(user).toEqual(expect.objectContaining({
+			id: 1, email: "u@1", name: "name",
+			isAdmin: true, stripeId: null
+		}));
+	});
+
+	test("not found id", async () => {
+		await expect(
+			User.getById(0)
+		).rejects.toThrowError(ExpressError);
 	});
 });

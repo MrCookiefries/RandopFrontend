@@ -12,6 +12,40 @@ beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
+describe("get /:userId", () => {
+	const userId = 3;
+
+	test("anon", async () => {
+		const resp = await request(app)
+			.get(`/users/${userId}`);
+
+		expect(resp.statusCode).toBe(401);
+	});
+
+	test("user", async () => {
+		const resp = await request(app)
+			.get(`/users/${userId}`)
+			.set("authorization", `Bearer ${adminToken}`);
+
+		expect(resp.statusCode).toBe(403);
+	});
+
+	test("response (owner)", async () => {
+		const resp = await request(app)
+			.get(`/users/${userId}`)
+			.set("authorization", `Bearer ${userToken}`);
+
+		expect(resp.statusCode).toBe(200);
+		expect(resp.body).toEqual(expect.objectContaining({
+			user: expect.objectContaining({
+				email: "u@3", id: userId,
+				isAdmin: false, name: "name",
+				stripeId: null
+			}),
+		}));
+	});
+});
+
 describe("post /", () => {
 	let newUser;
 

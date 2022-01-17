@@ -96,6 +96,23 @@ class User {
 	async update(data) {
 		return await User.updateById(this.id, data);
 	}
+
+	// fetches a user by id
+	static async getById(id) {
+		const result = await db.query(
+			`SELECT id, stripe_id AS "stripeId", email,
+			name, is_admin AS "isAdmin"
+			FROM users WHERE id = $1`,
+			[id]
+		);
+
+		const user = result.rows[0];
+		if (!user) {
+			throw new ExpressError(`No user found with ID: ${id}`, 400);
+		}
+
+		return new this(user);
+	}
 }
 
 module.exports = User;
