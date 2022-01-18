@@ -46,6 +46,20 @@ const ensureOwnerOrAdmin = (req, res, next) => {
 	}
 };
 
+// ensure requester is owner of user material
+const ensureOwner = (req, res, next) => {
+	try {
+		const { id } = res.user;
+		const { userId } = req.params;
+		if (id != userId) {
+			throw new ExpressError(`Must be the owner`, 403);
+		}
+		return next();
+	} catch (err) {
+		return next(err);
+	}
+};
+
 // ensure requester is an admin
 const ensureAdmin = (req, res, next) => {
 	try {
@@ -62,5 +76,6 @@ module.exports = {
 	authenticateJWT,
 	ensureUser,
 	ensureAdmin,
-	ensureOwnerOrAdmin
+	ensureOwnerOrAdmin,
+	ensureOwner
 };

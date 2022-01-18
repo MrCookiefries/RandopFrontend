@@ -125,6 +125,23 @@ class Product {
 
 		return new this(product);
 	}
+
+	// get products by an id set
+	static async getByIdSet(ids) {
+		// format ids for IN query
+		const idSet = ids.map(id => `'${id}'`).join(", ");
+		const result = await db.query(
+			`SELECT JSON_AGG(JSON_BUILD_OBJECT(
+				id, price
+			))
+			FROM products
+			WHERE id IN ($1)
+			GROUP BY id`,
+			[idSet]
+		);
+
+		return result.rows; // nothing log the query
+	}
 }
 
 module.exports = Product;

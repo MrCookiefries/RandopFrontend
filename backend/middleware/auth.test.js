@@ -4,7 +4,8 @@ const {
 	authenticateJWT,
 	ensureUser,
 	ensureAdmin,
-	ensureOwnerOrAdmin
+	ensureOwnerOrAdmin,
+	ensureOwner
 } = require("./auth");
 const { secretKey } = require("../config");
 const ExpressError = require("../ExpressError");
@@ -145,5 +146,34 @@ describe("ensure admin", () => {
 		};
 
 		expect(ensureAdmin(req, res, next)).toBeUndefined();
+	});
+});
+
+describe("ensure owner", () => {
+	const req = {
+		params: {}
+	};
+	const res = {
+		user: {
+			id: 1
+		}
+	};
+
+	test("is owner", () => {
+		req.params.userId = res.user.id;
+		const next = err => {
+			expect(err).toBeUndefined();
+		};
+
+		expect(ensureOwner(req, res, next)).toBeUndefined();
+	});
+
+	test("non owner", () => {
+		req.params.userId = 214;
+		const next = err => {
+			expect(err).toBeInstanceOf(ExpressError);
+		};
+
+		expect(ensureOwner(req, res, next)).toBeUndefined();
 	});
 });
