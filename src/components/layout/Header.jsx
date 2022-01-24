@@ -1,3 +1,4 @@
+import { Container, Typography, Paper, Box } from "@mui/material";
 import jumbotron from "../../assets/jumbotron.svg";
 // SVG from ^ https://www.svgbackgrounds.com/
 
@@ -9,8 +10,18 @@ const Header = () => {
 				backgroundImage: `url(${jumbotron})`,
 			}}
 		>
-			<h1>Randop</h1>
-			<p>An online shop</p>
+			<Container maxWidth="xs">
+				<Box py={4}>
+					<Paper elevation={24}>
+						<Typography align="center" variant="h1">
+							Randop
+						</Typography>
+						<Typography pb={1} align="center" variant="subtitle1">
+							An online shop of random goods
+						</Typography>
+					</Paper>
+				</Box>
+			</Container>
 		</header>
 	);
 };

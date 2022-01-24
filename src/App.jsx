@@ -1,9 +1,7 @@
-import { Button } from "@mui/material";
 import "./App.scss";
 import AppRoutes from "./AppRoutes";
 import Theme from "./theme/Theme";
 import { useDispatch } from "react-redux";
-import themeActions from "./store/actions/themeActions";
 import background from "./assets/background.svg";
 import { useEffect } from "react";
 import userActions from "./store/actions/userActions";
@@ -11,8 +9,8 @@ import userActions from "./store/actions/userActions";
 
 const App = () => {
 	const dispatch = useDispatch();
-	const toggleMode = () => dispatch(themeActions.toggle());
 
+	// load user token from local storage
 	useEffect(() => {
 		dispatch(userActions.loadSavedToken());
 	}, [dispatch]);
@@ -28,9 +26,6 @@ const App = () => {
 			}}
 		>
 			<Theme>
-				<Button onClick={toggleMode} variant="outlined" color="secondary">
-					hi
-				</Button>
 				<AppRoutes />
 			</Theme>
 		</div>
