@@ -33,68 +33,66 @@ const Nav = () => {
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
 	return (
-		<nav>
-			<AppBar position="sticky" color="grey" enableColorOnDark>
-				<Toolbar
+		<AppBar component="nav" position="sticky" color="grey" enableColorOnDark>
+			<Toolbar
+				sx={{
+					display: "flex",
+					justifyContent: "space-between",
+				}}
+			>
+				<Box
 					sx={{
-						display: "flex",
-						justifyContent: "space-between",
+						...boxSx,
+						justifyContent: "start",
 					}}
 				>
+					<ToggleThemeButton />
+					<Link component={NavLink} to="/">
+						Home
+					</Link>
+				</Box>
+				{isMobile ? null : (
 					<Box
 						sx={{
 							...boxSx,
-							justifyContent: "start",
+							justifyContent: "center",
 						}}
 					>
-						<ToggleThemeButton />
-						<Link component={NavLink} to="/">
-							Home
+						<Link component={NavLink} to="products">
+							Shop
 						</Link>
-					</Box>
-					{isMobile ? null : (
-						<Box
-							sx={{
-								...boxSx,
-								justifyContent: "center",
-							}}
-						>
-							<Link component={NavLink} to="products">
-								Shop
+						{isLoggedIn ? (
+							<Link component={NavLink} to="cart">
+								Cart
 							</Link>
-							{isLoggedIn ? (
-								<Link component={NavLink} to="cart">
-									Cart
-								</Link>
-							) : null}
-						</Box>
-					)}
-					<Box
-						sx={{
-							...boxSx,
-							justifyContent: "end",
-						}}
-					>
-						{isMobile ? (
-							<MobileDrawer isLoggedIn={isLoggedIn} logout={logout} />
-						) : isLoggedIn ? (
-							<Button onClick={logout} variant="contained">
-								Logout
-							</Button>
-						) : (
-							<>
-								<Link component={NavLink} to="login">
-									Login
-								</Link>
-								<Link component={NavLink} to="register">
-									Register
-								</Link>
-							</>
-						)}
+						) : null}
 					</Box>
-				</Toolbar>
-			</AppBar>
-		</nav>
+				)}
+				<Box
+					sx={{
+						...boxSx,
+						justifyContent: "end",
+					}}
+				>
+					{isMobile ? (
+						<MobileDrawer isLoggedIn={isLoggedIn} logout={logout} />
+					) : isLoggedIn ? (
+						<Button onClick={logout} variant="contained">
+							Logout
+						</Button>
+					) : (
+						<>
+							<Link component={NavLink} to="login">
+								Login
+							</Link>
+							<Link component={NavLink} to="register">
+								Register
+							</Link>
+						</>
+					)}
+				</Box>
+			</Toolbar>
+		</AppBar>
 	);
 };
 

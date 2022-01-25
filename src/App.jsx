@@ -1,5 +1,4 @@
 import { Paper } from "@mui/material";
-import "./App.scss";
 import AppRoutes from "./AppRoutes";
 import Theme from "./theme/Theme";
 import { useDispatch } from "react-redux";
@@ -15,7 +14,7 @@ const App = () => {
 	}, [dispatch]);
 
 	return (
-		<div className="App">
+		<div>
 			<Theme>
 				<Paper
 					elevation={0}
