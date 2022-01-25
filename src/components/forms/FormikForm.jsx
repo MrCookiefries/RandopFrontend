@@ -1,4 +1,5 @@
-import { Formik, Form } from "formik";
+import { Container, Paper, Box, Button } from "@mui/material";
+import { useFormik } from "formik";
 import FormField from "./FormField";
 
 const FormikForm = ({
@@ -7,29 +8,36 @@ const FormikForm = ({
 	onSubmit,
 	submitLabel = "Submit",
 }) => {
+	const formik = useFormik({
+		initialValues,
+		validationSchema,
+		onSubmit,
+	});
+
 	return (
-		<Formik
-			initialValues={initialValues}
-			validationSchema={validationSchema}
-			onSubmit={onSubmit}
-		>
-			{({ errors, touched }) => (
-				<Form>
-					{Object.keys(initialValues).map((k) => (
-						<FormField key={k} name={k} errors={errors} touched={touched} />
-					))}
-					<button
-						disabled={
-							Object.keys(errors).length ||
-							Object.keys(touched).length !== Object.keys(initialValues).length
-						}
-						type="submit"
-					>
-						{submitLabel}
-					</button>
-				</Form>
-			)}
-		</Formik>
+		<Container maxWidth="sm">
+			<Paper elevation={20}>
+				<Box p={2}>
+					<form onSubmit={formik.handleSubmit}>
+						{Object.keys(initialValues).map((k) => (
+							<FormField key={k} name={k} formik={formik} />
+						))}
+						<Button
+							sx={{
+								position: "relative",
+								left: "100%",
+								transform: "translateX(-100%)",
+								mt: 2,
+							}}
+							variant="outlined"
+							type="submit"
+						>
+							{submitLabel}
+						</Button>
+					</form>
+				</Box>
+			</Paper>
+		</Container>
 	);
 };
 

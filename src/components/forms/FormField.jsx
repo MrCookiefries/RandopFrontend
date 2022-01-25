@@ -1,7 +1,7 @@
-import { Field } from "formik";
+import { FormControl, TextField } from "@mui/material";
 import displayText from "../../helpers/displayText";
 
-const FormField = ({ name, errors, touched }) => {
+const FormField = ({ name, formik }) => {
 	let type;
 	switch (name) {
 		case "email":
@@ -18,13 +18,21 @@ const FormField = ({ name, errors, touched }) => {
 			type = "text";
 	}
 	return (
-		<div>
-			<label>
-				{displayText(name)}
-				<Field name={name} type={type} autoComplete="on" />
-			</label>
-			{touched[name] && errors[name] && <small>{errors[name]}</small>}
-		</div>
+		<FormControl sx={{ width: "100%" }}>
+			<TextField
+				variant="outlined"
+				fullWidth
+				margin="normal"
+				name={name}
+				type={type}
+				autoComplete="on"
+				label={displayText(name)}
+				value={formik.values[name]}
+				onChange={formik.handleChange}
+				error={formik.touched[name] && Boolean(formik.errors[name])}
+				helperText={formik.touched[name] && formik.errors[name]}
+			/>
+		</FormControl>
 	);
 };
 
