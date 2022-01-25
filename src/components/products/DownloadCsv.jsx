@@ -1,4 +1,5 @@
 import Papa from "papaparse";
+import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useMemo } from "react";
@@ -23,11 +24,15 @@ const DownloadCsv = () => {
 	return (
 		<>
 			{products.length ? (
-				<a href={`data:text/csv;charset=utf-8,${csv}`} download="products.csv">
-					Download Product Data
+				<a
+					style={{ textDecoration: "none" }}
+					href={`data:text/csv;charset=utf-8,${csv}`}
+					download="products.csv"
+				>
+					<LoadingButton variant="contained">Download</LoadingButton>
 				</a>
 			) : (
-				<p>loading products</p>
+				<LoadingButton loading variant="contained" />
 			)}
 		</>
 	);

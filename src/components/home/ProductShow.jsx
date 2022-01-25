@@ -1,7 +1,7 @@
 import { Typography, Box } from "@mui/material";
 import formatName from "../../helpers/formatName";
 
-const ProductShow = ({ name, image }) => {
+const ProductShow = ({ name, image, isSmall }) => {
 	return (
 		<Box
 			p={2}
@@ -12,9 +12,10 @@ const ProductShow = ({ name, image }) => {
 			</Typography>
 			<img
 				style={{
-					width: "300px",
+					width: "min(300px, 80%)",
 					height: "auto",
 					alignSelf: "center",
+					margin: `0 ${isSmall ? "auto" : 0}`,
 				}}
 				src={image}
 				alt={name}

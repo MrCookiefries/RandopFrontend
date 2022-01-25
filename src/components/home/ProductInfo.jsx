@@ -10,40 +10,42 @@ import {
 import { Link as NavLink } from "react-router-dom";
 import formatPrice from "../../helpers/formatPrice";
 
-const ProductInfo = ({ price, option1, option2 }) => {
+const ProductInfo = ({ price, option1, option2, isSmall }) => {
+	const alignment = isSmall ? "left" : "right";
+
 	return (
 		<Box
 			p={2}
 			sx={{ height: "100%", display: "flex", flexDirection: "column" }}
 		>
-			<Typography align="right" variant="body1">
+			<Typography align={alignment} variant="body1">
 				Details
 			</Typography>
 			<List sx={{ my: 2 }}>
 				{option1 && (
 					<ListItem>
-						<ListItemText align="right">{option1}</ListItemText>
+						<ListItemText align={alignment}>{option1}</ListItemText>
 					</ListItem>
 				)}
 				{option2 && (
 					<ListItem>
-						<ListItemText align="right">{option2}</ListItemText>
+						<ListItemText align={alignment}>{option2}</ListItemText>
 					</ListItem>
 				)}
 				<ListItem>
-					<ListItemText align="right">{formatPrice(price)}</ListItemText>
+					<ListItemText align={alignment}>{formatPrice(price)}</ListItemText>
 				</ListItem>
 			</List>
-			<Typography align="right" variant="body1">
+			<Typography align={alignment} variant="body1">
 				Hundreds of great products like this one are waiting for you, go and
 				check out our random selection of items now.
 			</Typography>
 			<Box sx={{ flex: 1, alignSelf: "flex-end", display: "flex" }}>
 				<Link
 					sx={{
-						textDecoration: "none",
 						alignSelf: "flex-end",
 					}}
+					underline="none"
 					component={NavLink}
 					to="products"
 				>

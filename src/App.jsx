@@ -1,11 +1,10 @@
+import { Paper } from "@mui/material";
 import "./App.scss";
 import AppRoutes from "./AppRoutes";
 import Theme from "./theme/Theme";
 import { useDispatch } from "react-redux";
-import background from "./assets/background.svg";
 import { useEffect } from "react";
 import userActions from "./store/actions/userActions";
-// SVG from ^ https://www.svgbackgrounds.com/
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -16,17 +15,16 @@ const App = () => {
 	}, [dispatch]);
 
 	return (
-		<div
-			className="App"
-			style={{
-				backgroundColor: "#64F8FF",
-				backgroundImage: `url(${background})`,
-				backgroundAttachment: "fixed",
-				backgroundSize: "contain",
-			}}
-		>
+		<div className="App">
 			<Theme>
-				<AppRoutes />
+				<Paper
+					elevation={0}
+					sx={{
+						bgcolor: "primary.main",
+					}}
+				>
+					<AppRoutes />
+				</Paper>
 			</Theme>
 		</div>
 	);

@@ -1,8 +1,7 @@
-import { Container, Paper, Grid, Box } from "@mui/material";
+import { Container, Paper, Grid, useTheme, useMediaQuery } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import productActions from "../../store/actions/productActions";
-import DownloadCsv from "../products/DownloadCsv";
 import ProductInfo from "./ProductInfo";
 import ProductShow from "./ProductShow";
 
@@ -23,12 +22,16 @@ const Home = () => {
 		dispatch(productActions.fetchMany(1, ranNum));
 	}, [dispatch, length]);
 
+	// determine if small breakpoint is hit or not
+	const theme = useTheme();
+	const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+
 	return (
 		<section>
 			{product ? (
 				<Container sx={{ my: 4 }} maxWidth="md">
-					<Grid container columns={{ md: 2 }}>
-						<Grid sx={{ flex: 1 }} item md={1}>
+					<Grid container sx={{ justifyContent: "center" }} columns={10}>
+						<Grid item xs={10} sm={8} md={5}>
 							<Paper
 								sx={{
 									height: "100%",
@@ -37,12 +40,12 @@ const Home = () => {
 								}}
 								elevation={4}
 							>
-								<ProductShow {...product} />
+								<ProductShow {...product} isSmall={isSmall} />
 							</Paper>
 						</Grid>
-						<Grid sx={{ flex: 1 }} item md={1}>
+						<Grid item xs={10} sm={8} md={5}>
 							<Paper sx={{ height: "100%" }} elevation={4}>
-								<ProductInfo {...product} />
+								<ProductInfo {...product} isSmall={isSmall} />
 							</Paper>
 						</Grid>
 					</Grid>
@@ -50,7 +53,6 @@ const Home = () => {
 			) : (
 				<p>loading...</p>
 			)}
-			<DownloadCsv />
 		</section>
 	);
 };
