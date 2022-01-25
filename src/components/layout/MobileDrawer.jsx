@@ -26,7 +26,7 @@ const MobileDrawer = ({ isLoggedIn, logout }) => {
 					sx={{
 						display: "flex",
 						flexDirection: "column",
-						gap: 1,
+						gap: 2,
 						alignItems: "center",
 						p: 2,
 					}}
@@ -45,11 +45,11 @@ const MobileDrawer = ({ isLoggedIn, logout }) => {
 						</>
 					) : (
 						<>
-							<Link {...linkProps} to="login">
-								Login
+							<Link underline="none" {...linkProps} to="login">
+								<Button variant="contained">Login</Button>
 							</Link>
-							<Link {...linkProps} to="register">
-								Register
+							<Link underline="none" {...linkProps} to="register">
+								<Button variant="contained">Register</Button>
 							</Link>
 						</>
 					)}

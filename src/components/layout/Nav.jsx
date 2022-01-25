@@ -82,11 +82,11 @@ const Nav = () => {
 						</Button>
 					) : (
 						<>
-							<Link component={NavLink} to="login">
-								Login
+							<Link underline="none" component={NavLink} to="login">
+								<Button variant="contained">Login</Button>
 							</Link>
-							<Link component={NavLink} to="register">
-								Register
+							<Link underline="none" component={NavLink} to="register">
+								<Button variant="contained">Register</Button>
 							</Link>
 						</>
 					)}
