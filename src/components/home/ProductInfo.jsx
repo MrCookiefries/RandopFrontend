@@ -36,7 +36,7 @@ const ProductInfo = ({ price, option1, option2, isSmall }) => {
 					<ListItemText align={alignment}>{formatPrice(price)}</ListItemText>
 				</ListItem>
 			</List>
-			<Typography align={alignment} variant="body1">
+			<Typography mb={2} align={alignment} variant="body1">
 				Hundreds of great products like this one are waiting for you, go and
 				check out our random selection of items now.
 			</Typography>
