@@ -6,7 +6,7 @@ import DownloadCsv from "../products/DownloadCsv";
 const Footer = () => {
 	return (
 		<footer>
-			<Paper elevation={0} sx={{ borderRadius: 0 }}>
+			<Paper elevation={0} square>
 				<Box
 					p={2}
 					sx={{

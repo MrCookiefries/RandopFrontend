@@ -37,6 +37,7 @@ const Home = () => {
 									height: "100%",
 									bgcolor: "primary.main",
 									color: "primary.contrastText",
+									borderRadius: `${isSmall ? "4px 4px 0 0" : "4px 0 0 4px"}`,
 								}}
 								elevation={4}
 							>
@@ -44,7 +45,13 @@ const Home = () => {
 							</Paper>
 						</Grid>
 						<Grid item xs={10} sm={8} md={5}>
-							<Paper sx={{ height: "100%" }} elevation={4}>
+							<Paper
+								sx={{
+									height: "100%",
+									borderRadius: `${isSmall ? "0 0 4px 4px" : "0 4px 4px 0"}`,
+								}}
+								elevation={4}
+							>
 								<ProductInfo {...product} isSmall={isSmall} />
 							</Paper>
 						</Grid>
