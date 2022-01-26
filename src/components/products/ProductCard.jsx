@@ -1,23 +1,25 @@
-import { Link } from "@mui/material";
-import { Link as RouteLink } from "react-router-dom";
+import {
+	Card,
+	CardContent,
+	CardMedia,
+	Typography,
+	CardActionArea,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 import formatPrice from "../../helpers/formatPrice";
+import formatName from "../../helpers/formatName";
 
 const ProductCard = ({ id, name, image, price }) => {
 	return (
-		<div>
-			<ul>
-				<li>id: {id}</li>
-				<li>name: {name}</li>
-				<li>
-					image: <img width={100} height="auto" src={image} alt={name} />
-				</li>
-				<li>price: {formatPrice(price)}</li>
-			</ul>
-			<Link component={RouteLink} to={id}>
-				View details
-			</Link>
-			<hr />
-		</div>
+		<Card elevation={4} sx={{ maxWidth: "300px" }}>
+			<CardActionArea component={Link} to={id}>
+				<CardMedia component="img" height="auto" image={image} alt={name} />
+				<CardContent>
+					<Typography variant="caption">{formatName(name)}</Typography>
+					<Typography variant="body1">{formatPrice(price)}</Typography>
+				</CardContent>
+			</CardActionArea>
+		</Card>
 	);
 };
 
