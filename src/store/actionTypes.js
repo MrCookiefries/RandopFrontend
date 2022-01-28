@@ -24,6 +24,22 @@ export const productTypes = {
 	loadOne: makeProduct("loadOne")
 };
 
+// carts
+const makeCart = makeTypeCreator("cart");
+export const cartTypes = {
+	delete: makeCart("delete"),
+	loadOne: makeCart("loadOne"),
+	loadAll: makeCart("loadAll")
+};
+
+// cart items
+const makeCartItem = makeTypeCreator("cartItem");
+export const cartItemTypes = {
+	delete: makeCartItem("delete"),
+	loadAll: makeCartItem("loadAll"),
+	loadOne: makeCartItem("loadOne")
+};
+
 // messages
 const makeMessage = makeTypeCreator("message");
 export const messageTypes = {

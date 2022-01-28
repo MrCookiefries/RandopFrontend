@@ -62,8 +62,8 @@ const Nav = () => {
 							Shop
 						</Link>
 						{isLoggedIn ? (
-							<Link component={NavLink} to="cart">
-								Cart
+							<Link component={NavLink} to="carts">
+								Carts
 							</Link>
 						) : null}
 					</Box>

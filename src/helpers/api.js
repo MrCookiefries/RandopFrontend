@@ -21,6 +21,38 @@ class Api {
 		}
 	}
 
+	// cart calls
+	static async getCarts() {
+		return await this.request(`carts`);
+	}
+
+	static async deleteCartById(id) {
+		return await this.request(`carts/${id}`, {}, "DELETE");
+	}
+
+	static async createCart() {
+		return await this.request(`carts`, {}, "POST");
+	}
+
+	// cart item calls
+	static async getCartItems(cartId) {
+		return await this.request(`cartItems/${cartId}`);
+	}
+
+	static async createCartItem(newCartItem) {
+		return await this.request(`cartItems`, newCartItem, "POST");
+	}
+
+	static async updateCartItem(cartItemVals) {
+		return await this.request(`cartItems`, cartItemVals, "PATCH");
+	}
+
+	static async deleteCartItemById(cartId, productId) {
+		return await this.request(
+			`cartItems/${cartId}/${productId}`, {}, "DELETE"
+		);
+	}
+
 	// product calls
 	static async getProductById(id) {
 		return await this.request(`products/${id}`);

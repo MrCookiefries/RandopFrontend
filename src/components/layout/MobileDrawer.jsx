@@ -36,8 +36,8 @@ const MobileDrawer = ({ isLoggedIn, logout }) => {
 					</Link>
 					{isLoggedIn ? (
 						<>
-							<Link {...linkProps} to="cart">
-								Cart
+							<Link {...linkProps} to="carts">
+								Carts
 							</Link>
 							<Button onClick={handleLogout} variant="contained">
 								Logout
