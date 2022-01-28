@@ -7,6 +7,12 @@ export const themeTypes = {
 	toggle: makeTheme("toggle")
 };
 
+// active cart
+const makeActiveCart = makeTypeCreator("activeCart");
+export const activeCartTypes = {
+	set: makeActiveCart("set")
+};
+
 // users
 const makeUser = makeTypeCreator("user");
 export const userTypes = {

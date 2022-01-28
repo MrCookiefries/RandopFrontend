@@ -9,6 +9,8 @@ const CartList = () => {
 	const { length: hasCart } = Object.keys(carts);
 	const dispatch = useDispatch();
 
+	const activeCart = useSelector((store) => store.activeCart);
+
 	const createCart = () => {
 		dispatch(cartActions.create());
 	};
@@ -20,13 +22,20 @@ const CartList = () => {
 	return (
 		<div>
 			<button onClick={createCart}>create</button>
+			{activeCart ? (
+				<p>active cart id: {activeCart}</p>
+			) : (
+				<p>no active cart set</p>
+			)}
 			{hasCart ? (
 				<div>
 					{Object.entries(carts).map(([k, v]) => (
-						<CartCard key={k} id={k} cart={v} />
+						<CartCard key={k} id={k} cart={v} activeId={activeCart} />
 					))}
 				</div>
-			) : null}
+			) : (
+				<p>none or loading</p>
+			)}
 			<Outlet />
 		</div>
 	);

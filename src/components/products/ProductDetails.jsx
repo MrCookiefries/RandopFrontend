@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import formatPrice from "../../helpers/formatPrice";
 import formatName from "../../helpers/formatName";
+import AddToCartForm from "../forms/AddToCartForm";
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -67,21 +68,7 @@ const ProductDetails = () => {
 									</ListItem>
 								</List>
 							</Box>
-							<form>
-								{/* quantity is form control & add to cart is submit for cart */}
-								<Grid container columns={12}>
-									<Grid item xs={12} sm={12} md={7} lg={8}>
-										<Box>
-											<Typography>quanitty</Typography>
-										</Box>
-									</Grid>
-									<Grid item>
-										<Box xs={12} sm={12} md={5} lg={4}>
-											<Button>heoi</Button>
-										</Box>
-									</Grid>
-								</Grid>
-							</form>
+							<AddToCartForm price={price} id={id} />
 						</Box>
 					</Grid>
 				</Grid>
