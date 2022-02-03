@@ -79,8 +79,14 @@ class Api {
 		return await this.request(`users/${userId}`);
 	}
 
+	// customer calls
 	static async createCustomer({ name, email }) {
 		return await this.request(`customers`, { name, email }, "POST");
+	}
+
+	// payment calls
+	static async createPayment(items) {
+		return await this.request(`payments`, { items }, "POST");
 	}
 }
 

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import productActions from "../../store/actions/productActions";
 import CartItem from "./CartItem";
 import formatPrice from "../../helpers/formatPrice";
+import { Link as NavLink } from "react-router-dom";
 
 const CartItemList = ({ cartItems }) => {
 	const products = useSelector((store) => store.products);
@@ -39,7 +40,9 @@ const CartItemList = ({ cartItems }) => {
 		<div>
 			<div>
 				<p>Grand Total {formatPrice(grandTotal)}</p>
-				<button>Checkout</button>
+				<NavLink to="/checkout" state={{ items }}>
+					Checkout
+				</NavLink>
 			</div>
 			{items.length ? (
 				items.map((i) => (

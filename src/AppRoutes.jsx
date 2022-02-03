@@ -8,6 +8,7 @@ import Layout from "./components/layout/Layout";
 import ProductDetails from "./components/products/ProductDetails";
 import ProductList from "./components/products/ProductList";
 import PrivateRoute from "./PrivateRoute";
+import Checkout from "./components/checkout/Checkout";
 
 const AppRoutes = () => (
 	<Routes>
@@ -26,6 +27,14 @@ const AppRoutes = () => (
 			>
 				<Route path=":id" element={<CartDetails />} />
 			</Route>
+			<Route
+				path="checkout"
+				element={
+					<PrivateRoute>
+						<Checkout />
+					</PrivateRoute>
+				}
+			/>
 			<Route path="login" element={<LoginForm />} />
 			<Route path="register" element={<RegisterForm />} />
 		</Route>
