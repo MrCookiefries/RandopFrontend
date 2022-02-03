@@ -11,7 +11,6 @@ import {
 	ListItemText,
 	Grid,
 	Container,
-	Button,
 } from "@mui/material";
 import formatPrice from "../../helpers/formatPrice";
 import formatName from "../../helpers/formatName";

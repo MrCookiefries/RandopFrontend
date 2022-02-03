@@ -23,8 +23,6 @@ export const userTypes = {
 // products
 const makeProduct = makeTypeCreator("product");
 export const productTypes = {
-	add: makeProduct("add"),
-	update: makeProduct("update"),
 	delete: makeProduct("delete"),
 	loadMany: makeProduct("loadMany"),
 	loadOne: makeProduct("loadOne")

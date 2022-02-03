@@ -2,12 +2,6 @@ import { productTypes } from "../actionTypes";
 import Api from "../../helpers/api";
 
 const productActions = {
-	add: newProduct => ({
-		type: productTypes.add, payload: newProduct
-	}),
-	update: productData => ({
-		type: productTypes.update, payload: productData
-	}),
 	delete: id => ({
 		type: productTypes.delete, id
 	}),
@@ -24,6 +18,11 @@ const productActions = {
 	},
 	fetchMany: (limit = 10, offset) => async dispatch => {
 		const resp = await Api.getProducts(limit, offset);
+		if (!resp) return;
+		dispatch(productActions.loadMany(resp.products));
+	},
+	fetchByIds: ids => async dispatch => {
+		const resp = await Api.getProductsByIds(ids);
 		if (!resp) return;
 		dispatch(productActions.loadMany(resp.products));
 	}

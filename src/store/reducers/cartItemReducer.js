@@ -2,7 +2,7 @@ import { cartItemTypes } from "../actionTypes";
 
 const makeId = ({ cartId, productId }) => `${cartId}/${productId}`;
 
-const cartItemReducer = (state = {}, action) => {
+const cartItemReducer = (state = null, action) => {
 	const { payload } = action;
 
 	switch (action.type) {

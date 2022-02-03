@@ -22,11 +22,21 @@ const AddToCartForm = ({ price, id }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	const cartItems = useSelector((store) => store.cartItems);
+	const productIds = new Set(
+		Object.keys(cartItems).map((k) => k.split("/")[1])
+	);
+
 	const initialValues = {
 		quantity: 1,
 	};
 
 	const handleSubmit = (values) => {
+		if (productIds.has(id)) {
+			return createMessage({
+				text: "You already have this item in your cart",
+			});
+		}
 		if (!activeCart) {
 			createMessage({
 				text: "You must set an active cart to add the items to!",
@@ -100,8 +110,9 @@ const AddToCartForm = ({ price, id }) => {
 							}}
 							variant="outlined"
 							type="submit"
+							disabled={productIds.has(id)}
 						>
-							Add To Cart
+							{productIds.has(id) ? "Already In Cart" : "Add To Cart"}
 						</Button>
 					</Box>
 				</Grid>

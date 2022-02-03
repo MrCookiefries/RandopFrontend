@@ -4,8 +4,6 @@ const productReducer = (state = {}, action) => {
 	const { payload } = action;
 
 	switch (action.type) {
-		case productTypes.add:
-		case productTypes.update:
 		case productTypes.loadOne:
 			const { id, ...details } = payload;
 			return { ...state, [id]: details };

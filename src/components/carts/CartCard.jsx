@@ -3,6 +3,7 @@ import { Link } from "@mui/material";
 import { Link as NavLink } from "react-router-dom";
 import cartActions from "../../store/actions/cartActions";
 import activeCartActions from "../../store/actions/activeCartActions";
+import cartItemActions from "../../store/actions/cartItemActions";
 
 const CartCard = ({ id, cart: { userId }, activeId }) => {
 	const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const CartCard = ({ id, cart: { userId }, activeId }) => {
 
 	const setActive = () => {
 		dispatch(activeCartActions.set(id));
+		dispatch(cartItemActions.fetchAll(id));
 	};
 
 	return (
@@ -20,7 +22,7 @@ const CartCard = ({ id, cart: { userId }, activeId }) => {
 			<p>
 				{id} - {userId}
 			</p>
-			<button onClick={setActive} disabled={activeId == id}>
+			<button onClick={setActive} disabled={activeId === id}>
 				set active
 			</button>
 			<button onClick={deleteCart}>delete</button>
