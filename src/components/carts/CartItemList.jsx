@@ -19,10 +19,12 @@ const CartItemList = ({ cartItems }) => {
 
 	useEffect(() => {
 		if (items.length) {
+			// don't fetch products if we have them all already
+			if (hasProducts) return;
 			const productIds = items.map((i) => i.productId);
 			dispatch(productActions.fetchByIds(productIds));
 		}
-	}, [dispatch, items]);
+	}, [dispatch, items, hasProducts]);
 
 	if (!items.length) return <p>empty cart.</p>;
 
