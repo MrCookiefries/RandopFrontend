@@ -74,6 +74,10 @@ class Api {
 	static async register(newUser) {
 		return await this.request(`users`, newUser, "POST");
 	}
+
+	static async getUserById(userId) {
+		return await this.request(`users/${userId}`);
+	}
 }
 
 export default Api;

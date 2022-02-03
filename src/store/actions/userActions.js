@@ -28,6 +28,11 @@ const userActions = {
 	loadSavedToken: () => {
 		const token = getSavedToken();
 		return userActions.load({}, token);
+	},
+	fetchUser: (userId, token) => async dispatch => {
+		const resp = await Api.getUserById(userId);
+		if (!resp) return;
+		dispatch(userActions.load(resp.user, token));
 	}
 };
 
