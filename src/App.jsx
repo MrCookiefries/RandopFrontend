@@ -10,20 +10,27 @@ const App = () => {
 	const dispatch = useDispatch();
 	const user = useSelector((store) => store.user);
 
+	// load user token from local storage
+	useEffect(() => {
+		dispatch(userActions.loadSavedToken());
+	}, [dispatch]);
+
 	// fetch the user data
 	useEffect(() => {
 		// don't load if not logged in
 		if (!user.token) return;
 		const { id } = jwt.decode(user.token);
-		// don't fetch if it's the same user
-		if (id === user.id) return;
-		dispatch(userActions.fetchUser(id, user.token));
+		// only fetch if it's a different user
+		if (id !== user.id) {
+			dispatch(userActions.fetchUser(id, user.token));
+		}
+		// create a stripe customer if not one
+		if (!user.stripeId) {
+			// don't make one of an unloaded user
+			if (!user.email) return;
+			dispatch(userActions.makeCustomer(user));
+		}
 	}, [dispatch, user]);
-
-	// load user token from local storage
-	useEffect(() => {
-		dispatch(userActions.loadSavedToken());
-	}, [dispatch]);
 
 	return (
 		<div>

@@ -78,6 +78,10 @@ class Api {
 	static async getUserById(userId) {
 		return await this.request(`users/${userId}`);
 	}
+
+	static async createCustomer({ name, email }) {
+		return await this.request(`customers`, { name, email }, "POST");
+	}
 }
 
 export default Api;

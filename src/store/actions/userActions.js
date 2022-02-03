@@ -33,6 +33,11 @@ const userActions = {
 		const resp = await Api.getUserById(userId);
 		if (!resp) return;
 		dispatch(userActions.load(resp.user, token));
+	},
+	makeCustomer: (user) => async dispatch => {
+		const resp = await Api.createCustomer(user);
+		if (!resp) return;
+		dispatch(userActions.load(resp.user, user.token));
 	}
 };
 
