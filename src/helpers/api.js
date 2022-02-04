@@ -58,7 +58,7 @@ class Api {
 		return await this.request(`products/${id}`);
 	}
 
-	static async getProducts(limit = 10, offset) {
+	static async getProducts(limit, offset) {
 		return await this.request(`products`, { limit, offset });
 	}
 
@@ -87,6 +87,15 @@ class Api {
 	// payment calls
 	static async createPayment(items) {
 		return await this.request(`payments`, { items }, "POST");
+	}
+
+	// order calls
+	static async placeOrder(cartId) {
+		return await this.request(`orders/${cartId}`, {}, "POST");
+	}
+
+	static async getOrders(limit, offset) {
+		return await this.request(`orders`, { limit, offset });
 	}
 }
 

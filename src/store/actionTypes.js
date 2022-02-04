@@ -44,6 +44,13 @@ export const cartItemTypes = {
 	loadOne: makeCartItem("loadOne")
 };
 
+// orders
+const makeOrder = makeTypeCreator("order");
+export const orderTypes = {
+	loadOne: makeOrder("loadOne"),
+	loadMany: makeOrder("loadMany")
+};
+
 // messages
 const makeMessage = makeTypeCreator("message");
 export const messageTypes = {

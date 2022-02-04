@@ -9,6 +9,7 @@ import ProductDetails from "./components/products/ProductDetails";
 import ProductList from "./components/products/ProductList";
 import PrivateRoute from "./PrivateRoute";
 import Checkout from "./components/checkout/Checkout";
+import PaymentSuccess from "./components/checkout/PaymentSuccess";
 
 const AppRoutes = () => (
 	<Routes>
@@ -37,6 +38,7 @@ const AppRoutes = () => (
 			/>
 			<Route path="login" element={<LoginForm />} />
 			<Route path="register" element={<RegisterForm />} />
+			<Route path="payment-success/:cartId" element={<PaymentSuccess />} />
 		</Route>
 		<Route path="*" element={<p>not found</p>} />
 	</Routes>

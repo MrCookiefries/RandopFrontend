@@ -6,6 +6,7 @@ import messages from "./reducers/messageReducer";
 import carts from "./reducers/cartReducer";
 import cartItems from "./reducers/cartItemReducer";
 import activeCart from "./reducers/activeCartReducer";
+import orders from "./reducers/orderReducer";
 
 const rootReducer = combineReducers({
 	theme,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
 	messages,
 	carts,
 	cartItems,
-	activeCart
+	activeCart,
+	orders
 });
 
 export default rootReducer;

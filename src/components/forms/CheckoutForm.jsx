@@ -3,8 +3,9 @@ import {
 	useStripe,
 	useElements,
 } from "@stripe/react-stripe-js";
+import createMessage from "../../helpers/createMessage";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ cartId }) => {
 	const stripe = useStripe();
 	const elements = useElements();
 
@@ -16,15 +17,13 @@ const CheckoutForm = () => {
 		const result = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: "http://localhost:3000/",
+				return_url: `http://localhost:3000/payment-success/${cartId}`,
 			},
 		});
 
 		if (result.error) {
 			console.error(result.error.message);
-			// create message
-		} else {
-			// make order & delete cart
+			createMessage({ text: result.error.message, type: "error" });
 		}
 	};
 

@@ -12,6 +12,7 @@ const stripePromise = loadStripe(
 const Checkout = () => {
 	const [clientSecret, setClientSecret] = useState(null);
 	const location = useLocation();
+	const { cartId } = location.state?.items[0];
 
 	useEffect(() => {
 		(async () => {
@@ -34,11 +35,9 @@ const Checkout = () => {
 		clientSecret,
 	};
 
-	console.debug(options);
-
 	return (
 		<Elements stripe={stripePromise} options={options}>
-			<CheckoutForm />
+			<CheckoutForm cartId={cartId} />
 		</Elements>
 	);
 };
