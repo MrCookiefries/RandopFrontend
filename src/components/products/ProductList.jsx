@@ -3,13 +3,26 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Outlet } from "react-router";
 import productActions from "../../store/actions/productActions";
 import ProductCard from "./ProductCard";
+import {
+	Link,
+	MemoryRouter,
+	Route,
+	Routes,
+	useLocation,
+} from "react-router-dom";
+import { Pagination, PaginationItem } from "@mui/material";
 
 const ProductList = () => {
 	const products = useSelector((store) => store.products, shallowEqual);
 	const dispatch = useDispatch();
 	const isLoading = !Object.keys(products).length;
+	const location = useLocation();
+	const query = new URLSearchParams(location.search);
+	const page = parseInt(query.get("page") || "1");
 
-	useEffect(() => dispatch(productActions.fetchMany()), [dispatch]);
+	useEffect(() => {
+		dispatch(productActions.fetchAll(10, (page - 1) * 10));
+	}, [dispatch, page]);
 
 	return (
 		<section>
@@ -22,6 +35,17 @@ const ProductList = () => {
 					<ProductCard key={k} id={k} {...v} />
 				))
 			)}
+			<Pagination
+				page={page}
+				count={30}
+				renderItem={(item) => (
+					<PaginationItem
+						component={Link}
+						to={`./${item.page === 1 ? "" : `?page=${item.page}`}`}
+						{...item}
+					/>
+				)}
+			/>
 		</section>
 	);
 };

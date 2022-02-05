@@ -11,6 +11,9 @@ const productActions = {
 	loadMany: products => ({
 		type: productTypes.loadMany, payload: products
 	}),
+	loadAll: products => ({
+		type: productTypes.loadAll, payload: products
+	}),
 	fetchOne: (id) => async dispatch => {
 		const resp = await Api.getProductById(id);
 		if (!resp) return;
@@ -20,6 +23,11 @@ const productActions = {
 		const resp = await Api.getProducts(limit, offset);
 		if (!resp) return;
 		dispatch(productActions.loadMany(resp.products));
+	},
+	fetchAll: (limit = 10, offset) => async dispatch => {
+		const resp = await Api.getProducts(limit, offset);
+		if (!resp) return;
+		dispatch(productActions.loadAll(resp.products));
 	},
 	fetchByIds: ids => async dispatch => {
 		const resp = await Api.getProductsByIds(ids);

@@ -25,7 +25,8 @@ const makeProduct = makeTypeCreator("product");
 export const productTypes = {
 	delete: makeProduct("delete"),
 	loadMany: makeProduct("loadMany"),
-	loadOne: makeProduct("loadOne")
+	loadOne: makeProduct("loadOne"),
+	loadAll: makeProduct("loadAll"),
 };
 
 // carts

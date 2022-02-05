@@ -17,6 +17,12 @@ const productReducer = (state = {}, action) => {
 					return acc;
 				}, {}), ...state
 			};
+		case productTypes.loadAll:
+			return payload.reduce((acc, p) => {
+				const { id, ...rest } = p;
+				acc[id] = rest;
+				return acc;
+			}, {});
 		case productTypes.delete:
 			const copy = { ...state };
 			delete copy[action.id];
