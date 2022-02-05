@@ -3,13 +3,7 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Outlet } from "react-router";
 import productActions from "../../store/actions/productActions";
 import ProductCard from "./ProductCard";
-import {
-	Link,
-	MemoryRouter,
-	Route,
-	Routes,
-	useLocation,
-} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Pagination, PaginationItem } from "@mui/material";
 
 const ProductList = () => {
