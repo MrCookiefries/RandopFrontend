@@ -10,6 +10,11 @@ import ProductList from "./components/products/ProductList";
 import PrivateRoute from "./PrivateRoute";
 import Checkout from "./components/checkout/Checkout";
 import PaymentSuccess from "./components/checkout/PaymentSuccess";
+import AdminRoute from "./AdminRoute";
+import AdminPanel from "./components/admin/AdminPanel";
+import AdminProductList from "./components/admin/ProductList";
+import { Outlet } from "react-router";
+import AddProductForm from "./components/forms/AddProductForm";
 
 const AppRoutes = () => (
 	<Routes>
@@ -39,6 +44,19 @@ const AppRoutes = () => (
 			<Route path="login" element={<LoginForm />} />
 			<Route path="register" element={<RegisterForm />} />
 			<Route path="payment-success/:cartId" element={<PaymentSuccess />} />
+			<Route
+				path="admin"
+				element={
+					<AdminRoute>
+						<AdminPanel />
+					</AdminRoute>
+				}
+			>
+				<Route path="products" element={<Outlet />}>
+					<Route index element={<AdminProductList />} />
+					<Route path="create" element={<AddProductForm />} />
+				</Route>
+			</Route>
 		</Route>
 		<Route path="*" element={<p>not found</p>} />
 	</Routes>

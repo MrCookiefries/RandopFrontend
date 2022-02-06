@@ -25,21 +25,23 @@ const ProductList = () => {
 			{isLoading ? (
 				<p>loading...</p>
 			) : (
-				Object.entries(products).map(([k, v]) => (
-					<ProductCard key={k} id={k} {...v} />
-				))
-			)}
-			<Pagination
-				page={page}
-				count={30}
-				renderItem={(item) => (
-					<PaginationItem
-						component={Link}
-						to={`./${item.page === 1 ? "" : `?page=${item.page}`}`}
-						{...item}
+				<div>
+					{Object.entries(products).map(([k, v]) => (
+						<ProductCard key={k} id={k} {...v} />
+					))}
+					<Pagination
+						page={page}
+						count={30}
+						renderItem={(item) => (
+							<PaginationItem
+								component={Link}
+								to={`./${item.page === 1 ? "" : `?page=${item.page}`}`}
+								{...item}
+							/>
+						)}
 					/>
-				)}
-			/>
+				</div>
+			)}
 		</section>
 	);
 };

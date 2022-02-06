@@ -66,6 +66,10 @@ class Api {
 		return await this.request(`products/getByIds`, { ids }, "POST");
 	}
 
+	static async createProduct(newProduct) {
+		return await this.request(`products`, newProduct, "POST");
+	}
+
 	// user calls
 	static async login(credentials) {
 		return await this.request(`auth`, credentials, "POST");

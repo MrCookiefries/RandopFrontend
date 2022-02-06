@@ -33,6 +33,11 @@ const productActions = {
 		const resp = await Api.getProductsByIds(ids);
 		if (!resp) return;
 		dispatch(productActions.loadMany(resp.products));
+	},
+	create: newProduct => async dispatch => {
+		const resp = await Api.createProduct(newProduct);
+		if (!resp) return;
+		dispatch(productActions.loadOne(resp.product));
 	}
 };
 
