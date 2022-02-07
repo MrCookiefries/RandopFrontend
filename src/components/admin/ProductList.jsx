@@ -15,7 +15,7 @@ const ProductList = () => {
 	const page = parseInt(query.get("page") || "1");
 
 	useEffect(() => {
-		dispatch(productActions.fetchAll(30, (page - 1) * 10));
+		dispatch(productActions.fetchAll(30, (page - 1) * 30));
 	}, [dispatch, page]);
 
 	return (

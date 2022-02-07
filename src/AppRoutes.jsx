@@ -16,6 +16,7 @@ import AdminProductList from "./components/admin/ProductList";
 import { Outlet } from "react-router";
 import AddProductForm from "./components/forms/AddProductForm";
 import UpdateProductForm from "./components/forms/UpdateProductForm";
+import OrderList from "./components/admin/OrderList";
 
 const AppRoutes = () => (
 	<Routes>
@@ -58,6 +59,7 @@ const AppRoutes = () => (
 					<Route path="create" element={<AddProductForm />} />
 					<Route path="update" element={<UpdateProductForm />} />
 				</Route>
+				<Route path="orders" element={<OrderList />} />
 			</Route>
 		</Route>
 		<Route path="*" element={<p>not found</p>} />

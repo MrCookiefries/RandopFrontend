@@ -109,6 +109,10 @@ class Api {
 	static async getOrders(limit, offset) {
 		return await this.request(`orders`, { limit, offset });
 	}
+
+	static async getOrderCount() {
+		return await this.request(`orders/count`);
+	}
 }
 
 export default Api;

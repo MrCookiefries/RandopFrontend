@@ -10,13 +10,13 @@ const orderActions = {
 		if (!resp) return;
 		dispatch(orderActions.loadOne(resp.order));
 	},
-	loadMany: orders => ({
-		type: orderTypes.loadMany, payload: orders
+	loadAll: orders => ({
+		type: orderTypes.loadAll, payload: orders
 	}),
-	fetchMany: (limit = 25, offset) => async dispatch => {
+	fetchAll: (limit = 25, offset) => async dispatch => {
 		const resp = await Api.getOrders(limit, offset);
 		if (!resp) return;
-		dispatch(orderActions.loadMany(resp.orders));
+		dispatch(orderActions.loadAll(resp.orders));
 	}
 };
 

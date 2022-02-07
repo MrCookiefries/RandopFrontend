@@ -49,7 +49,7 @@ export const cartItemTypes = {
 const makeOrder = makeTypeCreator("order");
 export const orderTypes = {
 	loadOne: makeOrder("loadOne"),
-	loadMany: makeOrder("loadMany")
+	loadAll: makeOrder("loadAll")
 };
 
 // messages
