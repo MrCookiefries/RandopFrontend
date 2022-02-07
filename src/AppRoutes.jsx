@@ -15,6 +15,7 @@ import AdminPanel from "./components/admin/AdminPanel";
 import AdminProductList from "./components/admin/ProductList";
 import { Outlet } from "react-router";
 import AddProductForm from "./components/forms/AddProductForm";
+import UpdateProductForm from "./components/forms/UpdateProductForm";
 
 const AppRoutes = () => (
 	<Routes>
@@ -55,6 +56,7 @@ const AppRoutes = () => (
 				<Route path="products" element={<Outlet />}>
 					<Route index element={<AdminProductList />} />
 					<Route path="create" element={<AddProductForm />} />
+					<Route path="update" element={<UpdateProductForm />} />
 				</Route>
 			</Route>
 		</Route>

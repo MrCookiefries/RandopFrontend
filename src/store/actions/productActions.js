@@ -38,6 +38,15 @@ const productActions = {
 		const resp = await Api.createProduct(newProduct);
 		if (!resp) return;
 		dispatch(productActions.loadOne(resp.product));
+	},
+	update: (id, newVals) => async dispatch => {
+		const resp = await Api.updateProduct(id, newVals);
+		if (!resp) return;
+		dispatch(productActions.loadOne(resp.product));
+	},
+	remove: id => async dispatch => {
+		await Api.deleteProduct(id);
+		dispatch(productActions.delete(id));
 	}
 };
 

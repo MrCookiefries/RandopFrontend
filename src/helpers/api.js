@@ -70,6 +70,14 @@ class Api {
 		return await this.request(`products`, newProduct, "POST");
 	}
 
+	static async updateProduct(id, newVals) {
+		return await this.request(`products/${id}`, newVals, "PATCH");
+	}
+
+	static async deleteProduct(id) {
+		return await this.request(`products/${id}`, {}, "DELETE");
+	}
+
 	// user calls
 	static async login(credentials) {
 		return await this.request(`auth`, credentials, "POST");
