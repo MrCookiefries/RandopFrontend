@@ -11,6 +11,8 @@ import {
 	ListItemText,
 	Grid,
 	Container,
+	Chip,
+	Divider,
 } from "@mui/material";
 import formatPrice from "../../helpers/formatPrice";
 import formatName from "../../helpers/formatName";
@@ -63,15 +65,19 @@ const ProductDetails = () => {
 											<ListItemText>{option2}</ListItemText>
 										</ListItem>
 									)}
-									<ListItem>
-										<ListItemText>{formatPrice(price)}</ListItemText>
-									</ListItem>
+									<Divider sx={{ mb: 1 }} textAlign="left">
+										<Chip
+											variant="outlined"
+											color="secondary"
+											label={formatPrice(price)}
+										/>
+									</Divider>
 								</List>
 							</Box>
 							{isLoggedIn ? (
 								<AddToCartForm price={price} id={id} />
 							) : (
-								<Typography color="secondary" variant="body1">
+								<Typography color="warning" variant="body1">
 									Please sign in to be able to add this product to your cart.
 								</Typography>
 							)}

@@ -34,7 +34,7 @@ const CartList = () => {
 					))}
 				</div>
 			) : (
-				<p>none or loading</p>
+				<p>0 carts loaded right now.</p>
 			)}
 			<Outlet />
 		</div>

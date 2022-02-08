@@ -74,7 +74,7 @@ const AddToCartForm = ({ price, id }) => {
 			<Grid container columns={12}>
 				<Grid item xs={12} sm={12} md={7} lg={8}>
 					<Box>
-						<FormControl sx={{ minWidth: 120 }}>
+						<FormControl sx={{ minWidth: 120, mb: 2 }}>
 							<InputLabel id="quantity-label">Quantity</InputLabel>
 							<Select
 								label="Quantity"
