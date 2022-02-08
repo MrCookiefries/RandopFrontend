@@ -38,7 +38,7 @@ const App = () => {
 				<Paper
 					elevation={0}
 					sx={{
-						bgcolor: "primary.main",
+						bgcolor: "text.primary",
 					}}
 				>
 					<AppRoutes />

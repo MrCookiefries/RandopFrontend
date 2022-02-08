@@ -29,10 +29,17 @@ const DownloadCsv = () => {
 					href={`data:text/csv;charset=utf-8,${csv}`}
 					download="products.csv"
 				>
-					<LoadingButton variant="contained">Download</LoadingButton>
+					<LoadingButton sx={{ ml: 1 }} color="secondary" variant="contained">
+						Download
+					</LoadingButton>
 				</a>
 			) : (
-				<LoadingButton loading variant="contained" />
+				<LoadingButton
+					sx={{ ml: 1 }}
+					color="secondary"
+					loading
+					variant="contained"
+				/>
 			)}
 		</>
 	);

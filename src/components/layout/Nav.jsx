@@ -32,6 +32,12 @@ const Nav = () => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+	const linkProps = {
+		component: NavLink,
+		variant: "h6",
+		underline: "hover",
+	};
+
 	return (
 		<AppBar component="nav" position="sticky" color="grey" enableColorOnDark>
 			<Toolbar
@@ -47,7 +53,7 @@ const Nav = () => {
 					}}
 				>
 					<ToggleThemeButton />
-					<Link component={NavLink} to="/">
+					<Link {...linkProps} to="/">
 						Home
 					</Link>
 				</Box>
@@ -58,11 +64,11 @@ const Nav = () => {
 							justifyContent: "center",
 						}}
 					>
-						<Link component={NavLink} to="products">
+						<Link {...linkProps} to="products">
 							Shop
 						</Link>
 						{isLoggedIn ? (
-							<Link component={NavLink} to="carts">
+							<Link {...linkProps} to="carts">
 								Carts
 							</Link>
 						) : null}
@@ -77,16 +83,20 @@ const Nav = () => {
 					{isMobile ? (
 						<MobileDrawer isLoggedIn={isLoggedIn} logout={logout} />
 					) : isLoggedIn ? (
-						<Button onClick={logout} variant="contained">
+						<Button color="secondary" onClick={logout} variant="contained">
 							Logout
 						</Button>
 					) : (
 						<>
 							<Link underline="none" component={NavLink} to="login">
-								<Button variant="contained">Login</Button>
+								<Button color="secondary" variant="contained">
+									Login
+								</Button>
 							</Link>
 							<Link underline="none" component={NavLink} to="register">
-								<Button variant="contained">Register</Button>
+								<Button color="secondary" variant="contained">
+									Register
+								</Button>
 							</Link>
 						</>
 					)}

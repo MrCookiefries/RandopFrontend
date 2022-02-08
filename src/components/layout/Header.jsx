@@ -17,14 +17,19 @@ const Header = () => {
 			<Container maxWidth="xs">
 				<Box py={4}>
 					<Paper elevation={24}>
-						<Typography align="center" variant="h1">
+						<Typography color="primary" align="center" variant="h1">
 							Randop
 						</Typography>
 						<Typography pb={1} align="center" variant="subtitle1">
 							An online shop of random goods
 						</Typography>
 						{isAdmin ? (
-							<Link component={NavLink} to="admin">
+							<Link
+								align="center"
+								color="info.main"
+								component={NavLink}
+								to="admin"
+							>
 								<Typography pb={1} align="center" variant="body1">
 									Visit Admin Panel
 								</Typography>

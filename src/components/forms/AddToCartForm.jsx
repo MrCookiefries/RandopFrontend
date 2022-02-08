@@ -24,7 +24,7 @@ const AddToCartForm = ({ price, id }) => {
 
 	const cartItems = useSelector((store) => store.cartItems);
 	const productIds = new Set(
-		Object.keys(cartItems).map((k) => k.split("/")[1])
+		cartItems ? Object.keys(cartItems).map((k) => k.split("/")[1]) : cartItems
 	);
 
 	const initialValues = {

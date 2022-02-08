@@ -21,6 +21,7 @@ const ProductDetails = () => {
 	const dispatch = useDispatch();
 	const { name, image, option1, option2, price } =
 		useSelector((store) => store.products[id]) || {};
+	const isLoggedIn = useSelector((store) => store.user.token);
 
 	useEffect(() => {
 		// don't refetch if product is already in memory
@@ -67,7 +68,13 @@ const ProductDetails = () => {
 									</ListItem>
 								</List>
 							</Box>
-							<AddToCartForm price={price} id={id} />
+							{isLoggedIn ? (
+								<AddToCartForm price={price} id={id} />
+							) : (
+								<Typography color="secondary" variant="body1">
+									Please sign in to be able to add this product to your cart.
+								</Typography>
+							)}
 						</Box>
 					</Grid>
 				</Grid>

@@ -4,7 +4,13 @@ import { Outlet } from "react-router";
 import productActions from "../../store/actions/productActions";
 import ProductCard from "./ProductCard";
 import { Link, useLocation } from "react-router-dom";
-import { Pagination, PaginationItem } from "@mui/material";
+import {
+	Pagination,
+	PaginationItem,
+	Paper,
+	Typography,
+	Box,
+} from "@mui/material";
 
 const ProductList = () => {
 	const products = useSelector((store) => store.products, shallowEqual);
@@ -19,30 +25,49 @@ const ProductList = () => {
 	}, [dispatch, page]);
 
 	return (
-		<section>
+		<Box p={2}>
 			<Outlet />
-			<p>products</p>
+			<Typography variant="h2" gutterBottom>
+				Our Products
+			</Typography>
 			{isLoading ? (
-				<p>loading...</p>
+				<Typography variant="body1">Loading...</Typography>
 			) : (
-				<div>
-					{Object.entries(products).map(([k, v]) => (
-						<ProductCard key={k} id={k} {...v} />
-					))}
-					<Pagination
-						page={page}
-						count={30}
-						renderItem={(item) => (
-							<PaginationItem
-								component={Link}
-								to={`./${item.page === 1 ? "" : `?page=${item.page}`}`}
-								{...item}
-							/>
-						)}
-					/>
-				</div>
+				<>
+					<Box
+						sx={{
+							display: "flex",
+							flexWrap: "wrap",
+							justifyContent: "center",
+							gap: 4,
+						}}
+					>
+						{Object.entries(products).map(([k, v]) => (
+							<ProductCard key={k} id={k} {...v} />
+						))}
+					</Box>
+					<Box sx={{ display: "flex", justifyContent: "center" }}>
+						<Paper elveation={8} sx={{ mt: 4, width: "max-content" }}>
+							<Box px={1} py={2}>
+								<Pagination
+									size="small"
+									color="secondary"
+									page={page}
+									count={30}
+									renderItem={(item) => (
+										<PaginationItem
+											component={Link}
+											to={`./${item.page === 1 ? "" : `?page=${item.page}`}`}
+											{...item}
+										/>
+									)}
+								/>
+							</Box>
+						</Paper>
+					</Box>
+				</>
 			)}
-		</section>
+		</Box>
 	);
 };
 

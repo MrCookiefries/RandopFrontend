@@ -24,10 +24,11 @@ const Layout = () => {
 			<main
 				style={{
 					flex: 1,
-					backgroundColor: "#64F8FF",
+					backgroundColor: "#DC53E1",
 					backgroundImage: `url(${background})`,
 					backgroundAttachment: "fixed",
 					backgroundSize: "contain",
+					backgroundPosition: "center",
 				}}
 			>
 				<Outlet />

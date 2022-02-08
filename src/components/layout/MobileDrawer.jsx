@@ -11,6 +11,8 @@ const MobileDrawer = ({ isLoggedIn, logout }) => {
 
 	const linkProps = {
 		component: NavLink,
+		variant: "h6",
+		underline: "hover",
 		onClick: closeDrawer,
 	};
 
@@ -39,17 +41,25 @@ const MobileDrawer = ({ isLoggedIn, logout }) => {
 							<Link {...linkProps} to="carts">
 								Carts
 							</Link>
-							<Button onClick={handleLogout} variant="contained">
+							<Button
+								color="secondary"
+								onClick={handleLogout}
+								variant="contained"
+							>
 								Logout
 							</Button>
 						</>
 					) : (
 						<>
 							<Link underline="none" {...linkProps} to="login">
-								<Button variant="contained">Login</Button>
+								<Button color="secondary" variant="contained">
+									Login
+								</Button>
 							</Link>
 							<Link underline="none" {...linkProps} to="register">
-								<Button variant="contained">Register</Button>
+								<Button color="secondary" variant="contained">
+									Register
+								</Button>
 							</Link>
 						</>
 					)}
