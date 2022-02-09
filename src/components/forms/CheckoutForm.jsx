@@ -4,6 +4,7 @@ import {
 	useElements,
 } from "@stripe/react-stripe-js";
 import createMessage from "../../helpers/createMessage";
+import { Button } from "@mui/material";
 
 const CheckoutForm = ({ cartId }) => {
 	const stripe = useStripe();
@@ -30,9 +31,20 @@ const CheckoutForm = ({ cartId }) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<PaymentElement />
-			<button disabled={!stripe} type="submit">
+			<Button
+				sx={{
+					my: 2,
+					position: "relative",
+					left: "100%",
+					transform: "translateX(-100%)",
+				}}
+				variant="outlined"
+				color="secondary"
+				disabled={!stripe}
+				type="submit"
+			>
 				Confirm
-			</button>
+			</Button>
 		</form>
 	);
 };

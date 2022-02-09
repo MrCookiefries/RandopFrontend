@@ -24,7 +24,7 @@ const Theme = ({ children }) => {
 			createTheme({
 				palette: getPalette(mode),
 				typography: {
-					fontFamily: textFont,
+					fontFamily: textFont.fontFamily,
 					h1: titleFont,
 					h2: titleFont,
 					h3: titleFont,
