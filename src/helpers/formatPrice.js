@@ -5,7 +5,7 @@ const formatPrice = price => {
 	for (let i = wholeArr.length - 3; i > 0; i -= 3) {
 		wholeArr.splice(i, 0, ",");
 	}
-	return `$${wholeArr.join("")}.${decimal}`;
+	return `$${wholeArr.join("")}.${decimal ? decimal.length === 1 ? decimal + 0 : decimal : "00"}`;
 }
 
 export default formatPrice;
