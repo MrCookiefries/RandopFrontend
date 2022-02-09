@@ -29,7 +29,7 @@ const UpdateQuantityForm = ({ cartId, productId, quantity, isTablet }) => {
 		dispatch(cartItemActions.update(cartItem));
 		createMessage({
 			text: `Updated quantity to ${values.quantity}`,
-			type: "good",
+			type: "success",
 		});
 	};
 

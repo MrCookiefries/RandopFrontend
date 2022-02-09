@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import Message from "./Message";
 
@@ -5,17 +6,18 @@ const Messages = () => {
 	const messages = useSelector((store) => store.messages);
 
 	return (
-		<section>
+		<Box sx={{ position: "fixed", width: "100%", zIndex: 10000, bottom: 0 }}>
 			{messages.map((m) => (
-				<Message
-					key={m.id}
-					id={m.id}
-					text={m.text}
-					type={m.type}
-					clearSeconds={m.clearSeconds}
-				/>
+				<Box key={m.id}>
+					<Message
+						id={m.id}
+						text={m.text}
+						type={m.type}
+						clearSeconds={m.clearSeconds}
+					/>
+				</Box>
 			))}
-		</section>
+		</Box>
 	);
 };
 

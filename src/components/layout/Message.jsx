@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import messageActions from "../../store/actions/messageActions";
+import { Alert } from "@mui/material";
 
 const Message = ({ id, text, type, clearSeconds }) => {
 	const dispatch = useDispatch();
@@ -20,10 +21,14 @@ const Message = ({ id, text, type, clearSeconds }) => {
 	};
 
 	return (
-		<div>
-			<p className={type}>{text}</p>
-			<button onClick={clearMessage}>Delete</button>
-		</div>
+		<Alert
+			sx={{ borderRadius: 0, border: 1 }}
+			variant="filled"
+			severity={type}
+			onClose={clearMessage}
+		>
+			{text}
+		</Alert>
 	);
 };
 

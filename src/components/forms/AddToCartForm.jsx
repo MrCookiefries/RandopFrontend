@@ -35,11 +35,13 @@ const AddToCartForm = ({ price, id }) => {
 		if (productIds.has(id)) {
 			return createMessage({
 				text: "You already have this item in your cart",
+				type: "warning",
 			});
 		}
 		if (!activeCart) {
 			createMessage({
 				text: "You must set an active cart to add the items to!",
+				type: "warning",
 			});
 			return navigate("/carts");
 		}

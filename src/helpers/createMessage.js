@@ -6,7 +6,7 @@ import messageActions from "../store/actions/messageActions";
 const createMessage = ({
 	id = uuidV4(),
 	text = "message",
-	type = "alert",
+	type = "info",
 	clearSeconds = 10000
 }) => {
 	const message = { id, text, type, clearSeconds };
