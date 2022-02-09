@@ -18,7 +18,7 @@ const ProductInfo = ({ price, option1, option2, isSmall }) => {
 			p={2}
 			sx={{ height: "100%", display: "flex", flexDirection: "column" }}
 		>
-			<Typography align={alignment} variant="body1">
+			<Typography color="primary" align={alignment} variant="body1">
 				Details
 			</Typography>
 			<List sx={{ my: 2 }}>

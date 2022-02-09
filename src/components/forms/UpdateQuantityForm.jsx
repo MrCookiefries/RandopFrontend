@@ -13,7 +13,7 @@ import { useFormik } from "formik";
 import cartItemActions from "../../store/actions/cartItemActions";
 import createMessage from "../../helpers/createMessage";
 
-const UpdateQuantityForm = ({ cartId, productId, quantity }) => {
+const UpdateQuantityForm = ({ cartId, productId, quantity, isTablet }) => {
 	const dispatch = useDispatch();
 
 	const initialValues = {
@@ -49,34 +49,49 @@ const UpdateQuantityForm = ({ cartId, productId, quantity }) => {
 	}
 
 	return (
-		<form onSubmit={formik.handleSubmit}>
-			<Box>
-				<FormControl size="small" sx={{ minWidth: 120 }}>
-					<InputLabel id="quantity-label">Quantity</InputLabel>
-					<Select
-						label="Quantity"
-						labelId="quantity-label"
-						value={formik.values.quantity}
-						onChange={formik.handleChange}
-						name="quantity"
-					>
-						{menuItems}
-					</Select>
-					<FormHelperText
-						error={formik.touched.quantity && Boolean(formik.errors.quantity)}
-					>
-						{formik.touched.quantity && formik.errors.quantity}
-					</FormHelperText>
-				</FormControl>
-				<Button
-					variant="outlined"
-					type="submit"
-					disabled={quantity === formik.values.quantity}
+		<Box my={isTablet ? 1 : 0}>
+			<form onSubmit={formik.handleSubmit}>
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: isTablet ? "row" : "column",
+						flexWrap: "wrap",
+					}}
 				>
-					{quantity !== formik.values.quantity ? "Save" : "Unchanged"}
-				</Button>
-			</Box>
-		</form>
+					<Box>
+						<FormControl size="small" sx={{ minWidth: 120 }}>
+							<InputLabel id="quantity-label">Quantity</InputLabel>
+							<Select
+								label="Quantity"
+								labelId="quantity-label"
+								value={formik.values.quantity}
+								onChange={formik.handleChange}
+								name="quantity"
+							>
+								{menuItems}
+							</Select>
+							<FormHelperText
+								error={
+									formik.touched.quantity && Boolean(formik.errors.quantity)
+								}
+							>
+								{formik.touched.quantity && formik.errors.quantity}
+							</FormHelperText>
+						</FormControl>
+					</Box>
+					<Box>
+						<Button
+							sx={{ minWidth: 120 }}
+							variant="outlined"
+							type="submit"
+							disabled={quantity === formik.values.quantity}
+						>
+							{quantity !== formik.values.quantity ? "Save" : "Unchanged"}
+						</Button>
+					</Box>
+				</Box>
+			</form>
+		</Box>
 	);
 };
 

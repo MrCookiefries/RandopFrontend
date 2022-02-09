@@ -4,6 +4,7 @@ import productActions from "../../store/actions/productActions";
 import CartItem from "./CartItem";
 import formatPrice from "../../helpers/formatPrice";
 import { Link as NavLink } from "react-router-dom";
+import { Box, Typography, Link } from "@mui/material";
 
 const CartItemList = ({ cartItems }) => {
 	const products = useSelector((store) => store.products);
@@ -27,9 +28,10 @@ const CartItemList = ({ cartItems }) => {
 		}
 	}, [dispatch, items, hasProducts]);
 
-	if (!items.length) return <p>empty cart.</p>;
+	if (!items.length)
+		return <Typography variant="body1">The cart is empty.</Typography>;
 
-	if (!hasProducts) return <p>loading...</p>;
+	if (!hasProducts) return <Typography variant="body1">Loading...</Typography>;
 
 	const grandTotal = items.reduce((total, { quantity, productId }) => {
 		const { price } = products[productId];
@@ -37,25 +39,22 @@ const CartItemList = ({ cartItems }) => {
 	}, 0);
 
 	return (
-		<div>
-			<div>
-				<p>Grand Total {formatPrice(grandTotal)}</p>
-				<NavLink to="/checkout" state={{ items }}>
-					Checkout
-				</NavLink>
-			</div>
-			{items.length ? (
-				items.map((i) => (
-					<CartItem
-						key={i.productId}
-						item={i}
-						product={products[i.productId]}
-					/>
-				))
-			) : (
-				<p>no items</p>
-			)}
-		</div>
+		<Box>
+			<Typography variant="subtitle1" color="secondary">
+				Grand Total: {formatPrice(grandTotal)}
+			</Typography>
+			<Link
+				color="info.main"
+				to="/checkout"
+				state={{ items }}
+				component={NavLink}
+			>
+				<Typography align="right">Checkout This Cart</Typography>
+			</Link>
+			{items.map((i) => (
+				<CartItem key={i.productId} item={i} product={products[i.productId]} />
+			))}
+		</Box>
 	);
 };
 
