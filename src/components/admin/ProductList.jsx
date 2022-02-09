@@ -1,6 +1,15 @@
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
-import { Pagination, PaginationItem, Link, Button } from "@mui/material";
+import {
+	Pagination,
+	PaginationItem,
+	Link,
+	Button,
+	Typography,
+	Paper,
+	Container,
+	Box,
+} from "@mui/material";
 import { Link as NavLink } from "react-router-dom";
 import productActions from "../../store/actions/productActions";
 import { useEffect } from "react";
@@ -19,36 +28,54 @@ const ProductList = () => {
 	}, [dispatch, page]);
 
 	return (
-		<div>
-			<div>
-				<p>admin products</p>
-				<Link underline="none" component={NavLink} to="create">
-					<Button variant="contained">Add Product</Button>
-				</Link>
-			</div>
-			<div>
-				{isLoading ? (
-					<p>loading...</p>
-				) : (
-					<div>
-						<Pagination
-							page={page}
-							count={10}
-							renderItem={(item) => (
-								<PaginationItem
-									component={NavLink}
-									to={`./${item.page === 1 ? "" : `?page=${item.page}`}`}
-									{...item}
+		<>
+			<Container maxWidth="xs">
+				<Paper elevation={4}>
+					<Box p={2}>
+						<Typography gutterBottom color="primary" variant="h5">
+							Admin Products
+						</Typography>
+						<Box my={2}>
+							<Link underline="none" component={NavLink} to="create">
+								<Button variant="outlined">Add Product</Button>
+							</Link>
+						</Box>
+						{isLoading ? null : (
+							<Box sx={{ display: "flex", justifyContent: "center" }}>
+								<Pagination
+									color="secondary"
+									size="small"
+									page={page}
+									count={10}
+									renderItem={(item) => (
+										<PaginationItem
+											component={NavLink}
+											to={`./${item.page === 1 ? "" : `?page=${item.page}`}`}
+											{...item}
+										/>
+									)}
 								/>
-							)}
-						/>
-						{Object.entries(products).map(([k, v]) => (
-							<ProductItem key={k} id={k} {...v} />
-						))}
-					</div>
-				)}
-			</div>
-		</div>
+							</Box>
+						)}
+					</Box>
+				</Paper>
+			</Container>
+			{isLoading ? (
+				<Paper elevation="6">
+					<Box p={2}>
+						<Typography variant="body">Loading...</Typography>
+					</Box>
+				</Paper>
+			) : (
+				<Container maxWidth="md">
+					{Object.entries(products).map(([k, v]) => (
+						<Box my={2} key={k}>
+							<ProductItem id={k} {...v} />
+						</Box>
+					))}
+				</Container>
+			)}
+		</>
 	);
 };
 

@@ -88,7 +88,7 @@ const OrderList = () => {
 					</Box>
 				</Paper>
 			</Container>
-			{!isLoading && count !== null && (
+			{!isLoading && count !== null ? (
 				<Masonry
 					columns={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
 					spacing={2}
@@ -98,7 +98,7 @@ const OrderList = () => {
 						<OrderItem key={k} id={k} {...v} />
 					))}
 				</Masonry>
-			)}
+			) : null}
 		</>
 	);
 };
