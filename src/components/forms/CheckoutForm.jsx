@@ -10,6 +10,8 @@ const CheckoutForm = ({ cartId }) => {
 	const stripe = useStripe();
 	const elements = useElements();
 
+	const baseUrl = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+
 	const handleSubmit = async (evt) => {
 		evt.preventDefault();
 
@@ -18,7 +20,7 @@ const CheckoutForm = ({ cartId }) => {
 		const result = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: `http://localhost:3000/payment-success/${cartId}`,
+				return_url: `${baseUrl}/payment-success/${cartId}`,
 			},
 		});
 
