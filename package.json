@@ -1,5 +1,6 @@
 {
   "name": "randop",
+  "homepage": "https://randop.surge.sh",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
