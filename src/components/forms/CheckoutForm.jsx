@@ -10,7 +10,10 @@ const CheckoutForm = ({ cartId }) => {
 	const stripe = useStripe();
 	const elements = useElements();
 
-	const baseUrl = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+	const baseUrl =
+		process.env.NODE_ENV !== "production"
+			? "http://localhost:3001"
+			: "https://randop.surge.sh";
 
 	const handleSubmit = async (evt) => {
 		evt.preventDefault();
