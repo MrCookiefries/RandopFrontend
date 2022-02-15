@@ -66,6 +66,10 @@ class Api {
 		return await this.request(`products/getByIds`, { ids }, "POST");
 	}
 
+	static async getProductCount() {
+		return await this.request(`products/count`);
+	}
+
 	static async createProduct(newProduct) {
 		return await this.request(`products`, newProduct, "POST");
 	}

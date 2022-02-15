@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Outlet } from "react-router";
 import productActions from "../../store/actions/productActions";
@@ -11,6 +11,7 @@ import {
 	Typography,
 	Box,
 } from "@mui/material";
+import Api from "../../helpers/api";
 
 const ProductList = () => {
 	const products = useSelector((store) => store.products, shallowEqual);
@@ -19,6 +20,15 @@ const ProductList = () => {
 	const location = useLocation();
 	const query = new URLSearchParams(location.search);
 	const page = parseInt(query.get("page") || "1");
+	const [count, setCount] = useState(null);
+
+	useEffect(() => {
+		(async () => {
+			const resp = await Api.getProductCount();
+			if (!resp) return;
+			setCount(+resp.count);
+		})();
+	}, []);
 
 	useEffect(() => {
 		dispatch(productActions.fetchAll(10, (page - 1) * 10));
@@ -30,7 +40,7 @@ const ProductList = () => {
 			<Typography variant="h2" gutterBottom>
 				Our Products
 			</Typography>
-			{isLoading ? (
+			{isLoading || count === null ? (
 				<Typography variant="body1">Loading...</Typography>
 			) : (
 				<>
@@ -53,7 +63,7 @@ const ProductList = () => {
 									size="small"
 									color="secondary"
 									page={page}
-									count={30}
+									count={Math.ceil(count / 10)}
 									renderItem={(item) => (
 										<PaginationItem
 											component={Link}

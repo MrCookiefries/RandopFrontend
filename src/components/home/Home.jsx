@@ -18,7 +18,7 @@ const Home = () => {
 	useEffect(() => {
 		// don't refetch if a product is already in memory
 		if (length) return;
-		const ranNum = Math.floor(Math.random() * 300) + 1;
+		const ranNum = Math.floor(Math.random() * 100) + 1;
 		dispatch(productActions.fetchMany(1, ranNum));
 	}, [dispatch, length]);
 

@@ -12,8 +12,9 @@ import {
 } from "@mui/material";
 import { Link as NavLink } from "react-router-dom";
 import productActions from "../../store/actions/productActions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
+import Api from "../../helpers/api";
 
 const ProductList = () => {
 	const products = useSelector((store) => store.products, shallowEqual);
@@ -22,6 +23,15 @@ const ProductList = () => {
 	const location = useLocation();
 	const query = new URLSearchParams(location.search);
 	const page = parseInt(query.get("page") || "1");
+	const [count, setCount] = useState(null);
+
+	useEffect(() => {
+		(async () => {
+			const resp = await Api.getProductCount();
+			if (!resp) return;
+			setCount(+resp.count);
+		})();
+	}, []);
 
 	useEffect(() => {
 		dispatch(productActions.fetchAll(30, (page - 1) * 30));
@@ -40,13 +50,13 @@ const ProductList = () => {
 								<Button variant="outlined">Add Product</Button>
 							</Link>
 						</Box>
-						{isLoading ? null : (
+						{isLoading || count === null ? null : (
 							<Box sx={{ display: "flex", justifyContent: "center" }}>
 								<Pagination
 									color="secondary"
 									size="small"
 									page={page}
-									count={10}
+									count={Math.ceil(count / 30)}
 									renderItem={(item) => (
 										<PaginationItem
 											component={NavLink}
