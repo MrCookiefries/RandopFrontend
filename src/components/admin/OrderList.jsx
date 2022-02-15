@@ -7,13 +7,18 @@ import {
 	Paper,
 	Typography,
 	Container,
+	TableContainer,
+	Table,
+	TableHead,
+	TableRow,
+	TableCell,
+	TableBody,
 } from "@mui/material";
 import { Link as NavLink } from "react-router-dom";
 import orderActions from "../../store/actions/orderActions";
 import { useEffect, useState } from "react";
 import Api from "../../helpers/api";
 import OrderItem from "./OrderItem";
-import { Masonry } from "@mui/lab";
 
 const OrderList = () => {
 	const orders = useSelector((store) => store.orders, shallowEqual);
@@ -35,6 +40,19 @@ const OrderList = () => {
 			setCount(+resp.count);
 		})();
 	}, []);
+
+	// order table info
+	const makeRowData = (orderId, { checkoutDate, userId, items }) => ({
+		orderId,
+		checkoutDate,
+		userId,
+		items,
+	});
+	const rows = [];
+	for (const [orderId, details] of Object.entries(orders)) {
+		rows.push(makeRowData(orderId, details));
+	}
+	const thStyles = { color: "primary.contrastText", bgcolor: "primary.main" };
 
 	return (
 		<>
@@ -89,15 +107,26 @@ const OrderList = () => {
 				</Paper>
 			</Container>
 			{!isLoading && count !== null ? (
-				<Masonry
-					columns={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
-					spacing={2}
-					sx={{ my: 4 }}
-				>
-					{Object.entries(orders).map(([k, v]) => (
-						<OrderItem key={k} id={k} {...v} />
-					))}
-				</Masonry>
+				<Container maxWidth="lg">
+					<TableContainer sx={{ my: 4 }} component={Paper} elevation={10}>
+						<Table stickyHeader>
+							<TableHead>
+								<TableRow>
+									<TableCell sx={{ ...thStyles }}>Expand</TableCell>
+									<TableCell sx={{ ...thStyles }}>Order ID</TableCell>
+									<TableCell sx={{ ...thStyles }}>User ID</TableCell>
+									<TableCell sx={{ ...thStyles }}>Item Count</TableCell>
+									<TableCell sx={{ ...thStyles }}>Checkout Date</TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								{rows.map((r) => (
+									<OrderItem key={r.orderId} {...r} />
+								))}
+							</TableBody>
+						</Table>
+					</TableContainer>
+				</Container>
 			) : null}
 		</>
 	);

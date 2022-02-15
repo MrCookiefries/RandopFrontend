@@ -1,52 +1,62 @@
 import {
-	Box,
-	Paper,
+	TableRow,
+	TableCell,
+	Collapse,
+	IconButton,
 	Typography,
-	List,
-	ListItem,
-	ListItemText,
+	Table,
+	TableHead,
+	TableBody,
+	Box,
 } from "@mui/material";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { useState } from "react";
 
-const OrderItem = ({ id, checkoutDate, userId, items }) => {
+const OrderItem = ({ orderId, checkoutDate, userId, items }) => {
+	const [open, setOpen] = useState(false);
+	const close = () => setOpen(!open);
+
 	return (
-		<Paper elevation={16}>
-			<Box p={2}>
-				<Box
-					mb={1}
-					sx={{
-						display: "flex",
-						flexWrap: "wrap",
-						gap: 2,
-						justifyContent: "space-between",
-					}}
-				>
-					<Box>
-						<Typography variant="subtitle1" color="primary">
-							Order #{id}
-						</Typography>
-					</Box>
-					<Box>
-						<Typography variant="caption" color="secondary">
-							@ {new Date(checkoutDate).toLocaleString()}
-						</Typography>
-					</Box>
-				</Box>
-				<Typography gutterBottom variant="body1">
-					User #{userId} with {items.length} product
-					{items.length === 1 ? "" : "s"}
-				</Typography>
-				<Typography gutterBottom variant="body1"></Typography>
-				<List>
-					{items.map((i) => (
-						<ListItem key={i.productId}>
-							<ListItemText>
-								{i.quantity} &times; {i.productId}
-							</ListItemText>
-						</ListItem>
-					))}
-				</List>
-			</Box>
-		</Paper>
+		<>
+			<TableRow>
+				<TableCell>
+					<IconButton onClick={close}>
+						{open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+					</IconButton>
+				</TableCell>
+				<TableCell>{orderId}</TableCell>
+				<TableCell>{userId}</TableCell>
+				<TableCell>{items.length}</TableCell>
+				<TableCell>{new Date(checkoutDate).toLocaleString()}</TableCell>
+			</TableRow>
+			<TableRow>
+				<TableCell sx={{ py: 0 }} colSpan={5}>
+					<Collapse in={open} timeout="auto" unmountOnExit>
+						<Box m={1}>
+							<Typography gutterBottom variant="subtitle1" color="primary">
+								Items
+							</Typography>
+							<Table size="small">
+								<TableHead>
+									<TableRow>
+										<TableCell>Quantity</TableCell>
+										<TableCell>Product ID</TableCell>
+									</TableRow>
+								</TableHead>
+								<TableBody>
+									{items.map((i) => (
+										<TableRow key={i.productId}>
+											<TableCell>{i.quantity}</TableCell>
+											<TableCell>{i.productId}</TableCell>
+										</TableRow>
+									))}
+								</TableBody>
+							</Table>
+						</Box>
+					</Collapse>
+				</TableCell>
+			</TableRow>
+		</>
 	);
 };
 
