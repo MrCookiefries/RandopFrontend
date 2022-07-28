@@ -2,9 +2,11 @@
 
 Deployed [here on surge][surge]
 
-An online shop of random goods!
+An online shop of random goods! Now with a dark & light theme toggle for switching at any time.
 
 _This is just the **React** frontend, the main project & backend can be found at [this repository][backend]_.
+
+<img src="./public/imgs/shop.png" alt="Landing page of shop with product display" />
 
 ---
 
@@ -33,6 +35,10 @@ Everything else like Node (NPM) will already be installed from the setup of the 
    ```bash
    npm i
    ```
+
+### Environment variables
+
+`REACT_APP_BASE_URL` used to link the shop API, defaults to `http://localhost:3001`
 
 ### Running the code
 
@@ -70,6 +76,8 @@ Users can create, log in, and logout of an account. Accounts are needed for some
 
 ### Products
 
+<img src="./public/imgs/products.png" alt="Page of product cards of items for sale" />
+
 Anyone can view the products that I have in the DB. To be able to add products to a shopping cart, you have to be logged in though. Only admins are able to create new products, edit existing ones, or delete ones.
 
 ### Carts
@@ -77,6 +85,8 @@ Anyone can view the products that I have in the DB. To be able to add products t
 Only users can view their shopping carts, create new ones, and delete them if they wish. In addition to that, when their cart is ready, they're able to check it out.
 
 ### Checkout
+
+<img src="./public/imgs/checkout.png" alt="Page of checkout payment form" />
 
 Users can checkout their shopping carts, to confirm payment on the items they have.
 
